@@ -28,7 +28,7 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
    - Complete GPT-style Transformer built from mathematical first principles without ML frameworks (no PyTorch, no TensorFlow), featuring 8-head multi-head attention and interactive attention heatmaps.
    - *Stack:* TypeScript, React.js, Deep Learning, Matrix Math, Transformers.
 
----
+
 
 ## 🛠️ Tech Stack & Architecture
 
