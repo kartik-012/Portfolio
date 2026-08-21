@@ -17,7 +17,8 @@ type Certification = {
     | "forage"
     | "skyscanner"
     | "walnut"
-    | "ieee";
+    | "ieee"
+    | "anthropic";
   date: string;
   category: "ai" | "cloud" | "security" | "data" | "dev";
   credentialId?: string;
@@ -257,53 +258,37 @@ const CERTIFICATIONS: Certification[] = [
     brandColor: "#7C3AED",
     accentGlow: "rgba(124, 58, 237, 0.35)",
   },
-  // 16. Forage Completion Certificate 1 (cusznb4p9eip)
+  // 16. Anthropic AI Fluency (cusznb4p9eip)
   {
-    id: "forage-completion-cusznb",
-    title: "Forage – Job Simulation Certificate of Completion",
-    issuer: "Forage",
-    issuerKey: "forage",
+    id: "anthropic-ai-fluency",
+    title: "Anthropic – AI Fluency: Framework & Foundations",
+    issuer: "Anthropic",
+    issuerKey: "anthropic",
     date: "Jun 2026",
     credentialId: "cusznb4p9eip",
     certificateUrl: "/cert-forage-1.pdf",
-    category: "dev",
-    skills: ["Job Simulation", "Professional Skills", "Industry Experience", "Problem Solving"],
+    category: "ai",
+    skills: ["Anthropic", "Claude Models", "AI Frameworks", "Prompt Engineering", "LLMs"],
     description:
-      "Awarded Forage Certificate of Completion for successfully completing a virtual job simulation program, demonstrating industry-relevant skills and professional competencies.",
-    brandColor: "#059669",
-    accentGlow: "rgba(5, 150, 105, 0.35)",
-  },
-  // 17. Forage Completion Certificate 2 (kq5p62yovk34)
-  {
-    id: "forage-completion-kq5p62",
-    title: "Forage – Job Simulation Certificate of Completion",
-    issuer: "Forage",
-    issuerKey: "forage",
-    date: "Jun 2026",
-    credentialId: "kq5p62yovk34",
-    certificateUrl: "/cert-forage-2.pdf",
-    category: "dev",
-    skills: ["Job Simulation", "Analytical Thinking", "Teamwork", "Communication"],
-    description:
-      "Successfully completed a Forage virtual job simulation, acquiring practical workplace experience and demonstrating competency in real-world professional scenarios.",
+      "Certificate of Completion awarded by Anthropic for mastering AI Fluency: Framework & Foundations, covering Large Language Model architectures, enterprise AI deployment, and foundational AI principles.",
     brandColor: "#D97706",
     accentGlow: "rgba(217, 119, 6, 0.35)",
   },
-  // 18. Forage Completion Certificate 3 (6a2fdb5d)
+  // 17. Anthropic Claude 101 (kq5p62yovk34)
   {
-    id: "forage-completion-6a2f",
-    title: "Forage – Job Simulation Certificate of Completion",
-    issuer: "Forage",
-    issuerKey: "forage",
+    id: "anthropic-claude-101",
+    title: "Anthropic – Claude 101 Certificate of Completion",
+    issuer: "Anthropic",
+    issuerKey: "anthropic",
     date: "Jun 2026",
-    credentialId: "6a2fdb5de1f2203d71388d54",
-    certificateUrl: "/cert-forage-6a2f.pdf",
-    category: "dev",
-    skills: ["Job Simulation", "Critical Thinking", "Professional Development", "Industry Skills"],
+    credentialId: "kq5p62yovk34",
+    certificateUrl: "/cert-forage-2.pdf",
+    category: "ai",
+    skills: ["Anthropic Claude", "Generative AI", "LLM Orchestration", "AI Integration"],
     description:
-      "Earned Forage Certificate of Completion by finishing a comprehensive virtual job simulation, building practical skills aligned with real employer expectations.",
-    brandColor: "#DC2626",
-    accentGlow: "rgba(220, 38, 38, 0.35)",
+      "Certificate of Completion awarded by Anthropic for completing Claude 101, demonstrating mastery in Claude API integration, prompt design, and AI application development.",
+    brandColor: "#CC785C",
+    accentGlow: "rgba(204, 120, 92, 0.35)",
   },
   // 19. IEEE Introduction to IoT
   {
@@ -684,6 +669,12 @@ function IssuerIcon({ issuerKey }: { issuerKey: string }) {
       return (
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#006699] text-white shadow-md font-black text-[11px] tracking-wider border border-white/20">
           IEEE
+        </div>
+      );
+    case "anthropic":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#CC785C] text-white shadow-md font-extrabold text-[12px] tracking-tighter border border-white/20">
+          A\
         </div>
       );
     case "iiitdharwad":
