@@ -2,9 +2,9 @@
 
 > **Production AI Systems • LLM Evaluation Pipelines • Multi-Agent Architectures • Deep Learning from Scratch**
 
-An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glassmorphic design system, interactive 3D project cards, dynamic telemetry HUD, neural ambient canvas, and an embedded **Atlas AI Portfolio Assistant**.
+An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glassmorphic design system, 3D interactive project cards, dynamic telemetry HUD, neural ambient canvas, verified industry qualifications, and an embedded **Atlas AI Assistant**.
 
-
+---
 
 ## 🚀 5 Flagship AI Systems Featured
 
@@ -28,7 +28,31 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
    - Complete GPT-style Transformer built from mathematical first principles without ML frameworks (no PyTorch, no TensorFlow), featuring 8-head multi-head attention and interactive attention heatmaps.
    - *Stack:* TypeScript, React.js, Deep Learning, Matrix Math, Transformers.
 
+---
 
+## 🏆 Verified Industry Certifications & Credentials
+
+- **IEEE:** Introduction to IoT (IEEE Blended Learning Program) — *Cred ID: `411409732KK`*
+- **Oracle:** OCI 2025 Certified Generative AI Professional & AI Foundations Associate
+- **Amazon Web Services (AWS):** Fundamentals of Machine Learning & AI
+- **Microsoft:** Azure Cloud Concepts & Serverless Architecture
+- **Skyscanner:** Front-End Software Engineering Job Simulation (Forage)
+- **Walnut:** Sales Technology Job Simulation (Forage)
+- **Deloitte:** Data Analytics Job Simulation — *Cred ID: `68dcdda956c19017e850b83f`*
+- **Tata:** GenAI Powered Data Analytics & Data Visualisation Simulations
+- **Cisco:** Introduction to Cybersecurity (Cisco Networking Academy)
+- **IBM:** Process Mining Project Journey
+- **TCS iON:** Career Edge – Young Professional
+
+---
+
+## 🏅 Leadership & National Recognition
+
+- **🥇 1st Place Winner** — National Level 24-Hour Hackathon (*Code For Innovex 2026*, NITTE Institute of Technology)
+- **🥈 Top 5 National Finalist** — *Hack2Future 2026* (IIIT Dharwad & Karnataka Digital Economy Mission)
+- **⚡ Core Event Lead & Technical Architect** — *VP JCE Tech Fest* (Managed 1,200+ attendees)
+
+---
 
 ## 🛠️ Tech Stack & Architecture
 
