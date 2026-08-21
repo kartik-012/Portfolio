@@ -6,7 +6,7 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
 
 ---
 
-## 🚀 5 Flagship AI Systems Featured
+## 🚀 7 Flagship AI Systems Featured
 
 1. **AtlasOS (Autonomous AI Operating System)**
    - Futuristic web-based AI desktop environment with windowed multitasking, terminal execution, file system sandbox, and autonomous copilot agents.
@@ -16,15 +16,23 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
    - Full-stack AI career portal with Dual-Engine RAG (`gemini-embedding-2-preview` + keyword fallback), interactive PDF keyword highlighting, recruiter telemetry console, and SSE word-by-word streaming.
    - *Stack:* React 19, Gemini 3.5 Flash, Express / Node, Vector RAG, SSE Streaming.
 
-3. **RagaAI Catalyst (Enterprise LLM Evaluation)**
+3. **ApexRAG (Production RAG Benchmarking Harness)**
+   - Research-grade RAG evaluation harness benchmarking 5 retrieval strategies (BM25, Semantic Vector, RRF, Cross-Encoder Re-Ranker, ML Router) across 100 human-verified Q&A pairs at $0 marginal cost.
+   - *Stack:* Python, FastAPI, ChromaDB, Sentence-Transformers, Ollama, Scikit-Learn.
+
+4. **GitHub MCP Toolkit (Enterprise Model Context Protocol & Saga Engine)**
+   - Enterprise Model Context Protocol (MCP) server exposing 12+ tools for autonomous repo management with two-phase preview tokens, Saga rollbacks, TF-IDF engine, and ABAC policies.
+   - *Stack:* Python, MCP Protocol, FastAPI, Pydantic, TF-IDF Vector Engine, Saga Pattern.
+
+5. **RagaAI Catalyst (Enterprise LLM Evaluation)**
    - Evaluation and benchmarking platform scoring LLM outputs across faithfulness, relevance, toxicity, and correctness across 5 leading providers (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral) via real-time WebSockets.
    - *Stack:* Python, FastAPI, React.js, MongoDB, WebSockets.
 
-4. **AI Debate Arena (Multi-Agent Orchestration)**
+6. **AI Debate Arena (Multi-Agent Orchestration)**
    - Autonomous multi-agent courtroom platform with real-time argument generation, persona synthesis, and live WebSocket streaming between Gemini, GPT-4, and Claude.
    - *Stack:* React.js, FastAPI, MongoDB, Multi-Agent, Gemini API.
 
-5. **NumPyGPT (Deep Learning from Scratch)**
+7. **NumPyGPT (Deep Learning from Scratch)**
    - Complete GPT-style Transformer built from mathematical first principles without ML frameworks (no PyTorch, no TensorFlow), featuring 8-head multi-head attention and interactive attention heatmaps.
    - *Stack:* TypeScript, React.js, Deep Learning, Matrix Math, Transformers.
 
