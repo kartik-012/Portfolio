@@ -85,7 +85,7 @@ const STACK = [
 ];
 
 const STATS = [
-  { value: "5+", label: "Flagship AI Systems" },
+  { value: "7", label: "Flagship AI Systems" },
   { value: "5", label: "LLMs Orchestrated" },
   { value: "8.5", label: "CGPA (AI & ML @ VTU)" },
   { value: "100%", label: "From Scratch Transformer" },
@@ -170,9 +170,7 @@ export function About() {
             data-reveal
             style={{ ["--reveal-delay" as string]: "150ms" }}
           >
-            Currently pursuing B.E. in Artificial Intelligence &amp; Machine Learning at VTU with an <strong className="font-semibold text-white">8.5 CGPA</strong>.
-            Proficient in Python, FastAPI, React.js, and modern AI frameworks with deep focus on evaluation rigor,
-            low-latency API pipelines, and graph-based misinformation tracking.
+            Currently pursuing B.E. in Artificial Intelligence &amp; Machine Learning at VTU with an <strong className="font-semibold text-white">8.5 CGPA</strong> and serving as <strong className="font-semibold text-white">Vice President of the AIML Department</strong> at Jain College of Engineering. Competitor in national hackathons including <strong className="font-semibold text-white">IIIT Dharwad Hack2Future 2.0 (Team VELORA)</strong> and <strong className="font-semibold text-white">NITTE Code for Innovex</strong>.
           </p>
 
           {/* Professional Single-Line Tech Stack with Big Icons & Glowing Effects */}

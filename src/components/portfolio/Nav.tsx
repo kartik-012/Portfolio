@@ -6,7 +6,8 @@ const LINKS = [
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
-  { id: "certifications", label: "Certifications" },
+  { id: "leadership", label: "Leadership" },
+  { id: "certifications", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -70,6 +71,16 @@ export function Nav() {
         </ul>
 
         <div className="flex items-center gap-3">
+          <a
+            href="/Kartik_Raikar_Resume.pdf"
+            download="Kartik_Raikar_Resume.pdf"
+            className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:text-primary sm:inline-flex"
+          >
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
+            </svg>
+            Resume
+          </a>
           <a
             href="#contact"
             className="hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-105 glow-red sm:inline-block"

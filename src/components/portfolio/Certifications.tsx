@@ -5,10 +5,23 @@ type Certification = {
   title: string;
   issuer: string;
   issuerKey:
-    "oracle" | "aws" | "microsoft" | "ibm" | "cisco" | "deloitte" | "tata" | "tcs" | "greatstack";
+    | "oracle"
+    | "aws"
+    | "microsoft"
+    | "ibm"
+    | "cisco"
+    | "deloitte"
+    | "tata"
+    | "tcs"
+    | "greatstack"
+    | "forage"
+    | "skyscanner"
+    | "walnut"
+    | "ieee";
   date: string;
   category: "ai" | "cloud" | "security" | "data" | "dev";
   credentialId?: string;
+  certificateUrl?: string;
   skills: string[];
   description: string;
   brandColor: string;
@@ -16,7 +29,7 @@ type Certification = {
 };
 
 const CERTIFICATIONS: Certification[] = [
-  // 1. Oracle AI
+  // 1. Oracle AI Foundations
   {
     id: "oracle-ai-foundations-2025",
     title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
@@ -213,6 +226,100 @@ const CERTIFICATIONS: Certification[] = [
       "Engineered an end-to-end full stack web application featuring responsive customer UI, authentication, database schemas, admin dashboard, and payment gateway.",
     brandColor: "#6366F1",
     accentGlow: "rgba(99, 102, 241, 0.35)",
+  },
+  // 14. Skyscanner Front-End Software Engineering
+  {
+    id: "forage-skyscanner-frontend",
+    title: "Skyscanner – Front-End Software Engineering Job Simulation",
+    issuer: "Forage (Skyscanner)",
+    issuerKey: "skyscanner",
+    date: "Aug 2026",
+    certificateUrl: "/cert-skyscanner.pdf",
+    category: "dev",
+    skills: ["React", "Front-End Development", "UI Components", "Agile", "Software Engineering"],
+    description:
+      "Completed Skyscanner's official front-end engineering job simulation on Forage, building real-world UI components and applying industry-standard React development practices.",
+    brandColor: "#0770E3",
+    accentGlow: "rgba(7, 112, 227, 0.35)",
+  },
+  // 15. Forage Walnut Job Simulation
+  {
+    id: "forage-walnut",
+    title: "Walnut – Sales Technology Job Simulation",
+    issuer: "Forage (Walnut)",
+    issuerKey: "walnut",
+    date: "Aug 2026",
+    certificateUrl: "/cert-forage-walnut.pdf",
+    category: "dev",
+    skills: ["Sales Technology", "Product Demos", "SaaS", "CRM", "Technical Sales"],
+    description:
+      "Completed Walnut's official job simulation on Forage, gaining hands-on experience in building interactive product demos and mastering modern B2B sales technology workflows.",
+    brandColor: "#7C3AED",
+    accentGlow: "rgba(124, 58, 237, 0.35)",
+  },
+  // 16. Forage Completion Certificate 1 (cusznb4p9eip)
+  {
+    id: "forage-completion-cusznb",
+    title: "Forage – Job Simulation Certificate of Completion",
+    issuer: "Forage",
+    issuerKey: "forage",
+    date: "Jun 2026",
+    credentialId: "cusznb4p9eip",
+    certificateUrl: "/cert-forage-1.pdf",
+    category: "dev",
+    skills: ["Job Simulation", "Professional Skills", "Industry Experience", "Problem Solving"],
+    description:
+      "Awarded Forage Certificate of Completion for successfully completing a virtual job simulation program, demonstrating industry-relevant skills and professional competencies.",
+    brandColor: "#059669",
+    accentGlow: "rgba(5, 150, 105, 0.35)",
+  },
+  // 17. Forage Completion Certificate 2 (kq5p62yovk34)
+  {
+    id: "forage-completion-kq5p62",
+    title: "Forage – Job Simulation Certificate of Completion",
+    issuer: "Forage",
+    issuerKey: "forage",
+    date: "Jun 2026",
+    credentialId: "kq5p62yovk34",
+    certificateUrl: "/cert-forage-2.pdf",
+    category: "dev",
+    skills: ["Job Simulation", "Analytical Thinking", "Teamwork", "Communication"],
+    description:
+      "Successfully completed a Forage virtual job simulation, acquiring practical workplace experience and demonstrating competency in real-world professional scenarios.",
+    brandColor: "#D97706",
+    accentGlow: "rgba(217, 119, 6, 0.35)",
+  },
+  // 18. Forage Completion Certificate 3 (6a2fdb5d)
+  {
+    id: "forage-completion-6a2f",
+    title: "Forage – Job Simulation Certificate of Completion",
+    issuer: "Forage",
+    issuerKey: "forage",
+    date: "Jun 2026",
+    credentialId: "6a2fdb5de1f2203d71388d54",
+    certificateUrl: "/cert-forage-6a2f.pdf",
+    category: "dev",
+    skills: ["Job Simulation", "Critical Thinking", "Professional Development", "Industry Skills"],
+    description:
+      "Earned Forage Certificate of Completion by finishing a comprehensive virtual job simulation, building practical skills aligned with real employer expectations.",
+    brandColor: "#DC2626",
+    accentGlow: "rgba(220, 38, 38, 0.35)",
+  },
+  // 19. IEEE Introduction to IoT
+  {
+    id: "ieee-introduction-to-iot",
+    title: "Introduction to IoT – IEEE Blended Learning Program",
+    issuer: "IEEE",
+    issuerKey: "ieee",
+    date: "Aug 2026",
+    credentialId: "411409732KK",
+    certificateUrl: "/cert-ieee-iot.pdf",
+    category: "cloud",
+    skills: ["Internet of Things (IoT)", "Embedded Systems", "Sensor Networks", "Smart Devices", "IEEE Certified"],
+    description:
+      "Certificate of Completion awarded by IEEE Blended Learning Program for mastering Introduction to IoT principles, connected sensor network architectures, and smart device communication frameworks.",
+    brandColor: "#006699",
+    accentGlow: "rgba(0, 102, 153, 0.35)",
   },
 ];
 
@@ -411,30 +518,48 @@ export function Certifications() {
               </div>
 
               {/* Bottom Credential ID / Action */}
-              <div className="relative z-10 mt-5 pt-4 border-t border-border/40 flex items-center justify-between">
-                {cert.credentialId ? (
-                  <div className="flex items-center justify-between w-full">
-                    <span
-                      className="text-[10px] font-mono text-muted-foreground truncate max-w-[170px]"
-                      title={cert.credentialId}
-                    >
-                      ID: {cert.credentialId}
-                    </span>
-
-                    <button
-                      onClick={() => copyCredential(cert.credentialId!, cert.id)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-border/60 bg-background/60 px-2.5 py-1 text-[10px] font-semibold text-foreground transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:border-primary"
-                    >
-                      {copiedId === cert.id ? "✓ Copied" : "Copy ID 📋"}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between w-full">
-                    <span className="text-[10px] font-semibold text-muted-foreground">
-                      Official Training Credential
-                    </span>
-                    <span className="text-xs text-primary font-bold">● Active</span>
-                  </div>
+              <div className="relative z-10 mt-5 pt-4 border-t border-border/40 flex flex-col gap-2">
+                <div className="flex items-center justify-between w-full">
+                  {cert.credentialId ? (
+                    <>
+                      <span
+                        className="text-[10px] font-mono text-muted-foreground truncate max-w-[140px]"
+                        title={cert.credentialId}
+                      >
+                        ID: {cert.credentialId}
+                      </span>
+                      <button
+                        onClick={() => copyCredential(cert.credentialId!, cert.id)}
+                        className="inline-flex items-center gap-1 rounded-lg border border-border/60 bg-background/60 px-2.5 py-1 text-[10px] font-semibold text-foreground transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                      >
+                        {copiedId === cert.id ? "✓ Copied" : "Copy ID 📋"}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-[10px] font-semibold text-muted-foreground">
+                        Official Training Credential
+                      </span>
+                      <span className="text-xs text-primary font-bold">● Active</span>
+                    </>
+                  )}
+                </div>
+                {cert.certificateUrl && (
+                  <a
+                    href={cert.certificateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-1.5 text-[10px] font-semibold text-foreground transition-all duration-200 hover:bg-primary/10 hover:border-primary/60 hover:text-primary"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                      <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    View Certificate
+                  </a>
                 )}
               </div>
             </div>
@@ -531,6 +656,52 @@ function IssuerIcon({ issuerKey }: { issuerKey: string }) {
       return (
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white border border-border text-[#E20074] shadow-md font-black text-[10px]">
           tcs<span className="text-black">iON</span>
+        </div>
+      );
+    case "forage":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1B4332] text-white shadow-md">
+          <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z" />
+          </svg>
+        </div>
+      );
+    case "skyscanner":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0770E3] text-white shadow-md">
+          <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+          </svg>
+        </div>
+      );
+    case "walnut":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#7C3AED] text-white shadow-md font-black text-[10px] tracking-tight">
+          WLT
+        </div>
+      );
+    case "ieee":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#006699] text-white shadow-md font-black text-[11px] tracking-wider border border-white/20">
+          IEEE
+        </div>
+      );
+    case "iiitdharwad":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0284C7] text-white font-black text-[10px] tracking-tight shadow-md border border-white/20">
+          IIITD
+        </div>
+      );
+    case "nitte":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D97706] text-white font-black text-[10px] tracking-tight shadow-md border border-white/20">
+          NITTE
+        </div>
+      );
+    case "jce":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#8B5CF6] text-white font-black text-[10px] tracking-tight shadow-md border border-white/20">
+          VP
         </div>
       );
     default:

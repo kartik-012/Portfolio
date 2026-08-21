@@ -12,6 +12,10 @@ const KNOWLEDGE_BASE: Record<string, string> = {
     "AtlasOS is an autonomous web-based AI operating system and intelligent workspace featuring windowed multitasking, terminal execution, file system sandbox, and autonomous co-pilot agents built with React 19 and FastAPI.",
   atlas:
     'Atlas AI Resume ("Talk with my Resume.") is a production-quality full-stack AI Resume Portal built with React 19, Express/Node, and Gemini 3.5 Flash. It features an interactive PDF viewer with real-time keyword highlights, Dual-Engine RAG (Gemini Embedding 2 Preview with cosine similarity + keyword fallback), Server-Sent Events (SSE) word-by-word streaming, Recruiter Telemetry Console with SVG area charts, and a RAG Index Studio for live document embedding.',
+  apexrag:
+    "ApexRAG is a production-grade RAG evaluation harness benchmarking 5 retrieval strategies (Simple BM25, Semantic Vector, Hybrid RRF, Cross-Encoder Rerank, and Learned ML Router) across 100 human-verified Q&A pairs on React documentation — operating at $0 marginal cost with ChromaDB, Ollama, and scikit-learn.",
+  mcp:
+    "GitHub MCP Toolkit is an enterprise Model Context Protocol (MCP) server with 12+ executable tools, featuring a Preview-Token Two-Phase protocol to eliminate blind LLM mutations, a file-backed Saga transaction journal for atomic rollbacks, a pure-Python TF-IDF vector engine, and an ABAC policy engine.",
   catalyst:
     "RagaAI Catalyst is an enterprise platform scoring LLM outputs across faithfulness, relevance, toxicity, and correctness with 5 model providers (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral) via WebSocket streaming.",
   debate:
@@ -25,6 +29,8 @@ const KNOWLEDGE_BASE: Record<string, string> = {
 };
 
 const SUGGESTIONS = [
+  { label: "⚡ ApexRAG", key: "apexrag" },
+  { label: "🛠️ GitHub MCP", key: "mcp" },
   { label: "💻 AtlasOS", key: "atlasos" },
   { label: "🚀 Atlas AI Resume", key: "atlas" },
   { label: "⚡ RagaAI Catalyst", key: "catalyst" },
@@ -37,7 +43,7 @@ export function AiChatAssistant() {
     {
       id: "init",
       sender: "assistant",
-      text: "Hi! I'm Kartik's AI Portfolio Assistant. Ask me anything about AtlasOS, Atlas AI Resume, RagaAI Catalyst, AI Debate Arena, or NumPyGPT.",
+      text: "Hi! I'm Kartik's AI Portfolio Assistant. Ask me about ApexRAG, GitHub MCP, AtlasOS, Atlas AI Resume, RagaAI Catalyst, AI Debate Arena, or NumPyGPT.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -88,9 +94,13 @@ export function AiChatAssistant() {
     // Determine best response
     const qLower = query.toLowerCase();
     let responseText =
-      "Kartik is an AI Engineer specialized in LLM Evaluation, RAG pipelines, and Transformers. Check out his projects below or connect at kartikraikar2005@gmail.com!";
+      "Kartik is an AI Engineer specialized in LLM Evaluation, RAG pipelines, MCP servers, and Transformers. Check out his projects below or connect at kartikraikar2005@gmail.com!";
 
-    if (qLower.includes("atlasos") || qLower.includes("desktop") || qLower.includes("workspace") || qLower.includes("os")) {
+    if (qLower.includes("apex") || qLower.includes("benchmark") || qLower.includes("rrf") || qLower.includes("retrieval")) {
+      responseText = KNOWLEDGE_BASE.apexrag;
+    } else if (qLower.includes("mcp") || qLower.includes("toolkit") || qLower.includes("saga") || qLower.includes("preview")) {
+      responseText = KNOWLEDGE_BASE.mcp;
+    } else if (qLower.includes("atlasos") || qLower.includes("desktop") || qLower.includes("workspace") || qLower.includes("os")) {
       responseText = KNOWLEDGE_BASE.atlasos;
     } else if (
       qLower.includes("resume") ||

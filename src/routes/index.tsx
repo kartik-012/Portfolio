@@ -5,6 +5,7 @@ import { About } from "@/components/portfolio/About";
 import { Skills } from "@/components/portfolio/Skills";
 import { Process } from "@/components/portfolio/Process";
 import { Projects } from "@/components/portfolio/Projects";
+import { LeadershipAchievements } from "@/components/portfolio/LeadershipAchievements";
 import { Certifications } from "@/components/portfolio/Certifications";
 import { Contact } from "@/components/portfolio/Contact";
 import { useScrollReveal } from "@/components/portfolio/useReveal";
@@ -43,6 +44,7 @@ function Index() {
       <Skills />
       <Process />
       <Projects />
+      <LeadershipAchievements />
       <Certifications />
       <Contact />
     </main>
