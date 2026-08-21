@@ -45,9 +45,7 @@ export function Nav() {
               className="h-full w-full object-cover object-[center_48%] scale-110"
             />
           </div>
-          <span>
-            Kartik<span className="text-primary">.</span>Raikar
-          </span>
+          <span>Kartik Raikar</span>
         </a>
 
         <ul className="hidden items-center gap-1 rounded-full border border-border bg-card/50 px-2 py-1.5 backdrop-blur-md md:flex">
