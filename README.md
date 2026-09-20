@@ -48,7 +48,6 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
 - **IBM:** Process Mining Project Journey
 - **TCS iON:** Career Edge – Young Professional
 
-
 ## 🏅 Leadership & National Recognition
 
 - **🥇 1st Place Winner** — National Level 24-Hour Hackathon (*Code For Innovex 2026*, NITTE Institute of Technology)
