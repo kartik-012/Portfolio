@@ -87,7 +87,6 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
    ```
 
 
-
 ## 📬 Contact & Connect
 
 - **Engineer:** Kartik Raikar (B.E. AI & ML @ VTU — 8.5 CGPA)
