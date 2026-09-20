@@ -55,7 +55,6 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
 - **🥈 Top 5 National Finalist** — *Hack2Future 2026* (IIIT Dharwad & Karnataka Digital Economy Mission)
 - **⚡ Core Event Lead & Technical Architect** — *VP JCE Tech Fest* (Managed 1,200+ attendees)
 
----
 
 ## 🛠️ Tech Stack & Architecture
 
