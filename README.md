@@ -50,7 +50,7 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
 - **IBM:** Process Mining Project Journey
 - **TCS iON:** Career Edge – Young Professional
 
----
+
 
 ## 🏅 Leadership & National Recognition
 
