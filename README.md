@@ -36,7 +36,6 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
    - *Stack:* TypeScript, React.js, Deep Learning, Matrix Math, Transformers.
 
 
-
 ## 🏆 Verified Industry Certifications & Credentials
 
 - **IEEE:** Introduction to IoT (IEEE Blended Learning Program) — *Cred ID: `411409732KK`*
