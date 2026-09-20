@@ -69,7 +69,7 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
 - **Micro-Interactions:** Canvas Particle Neural Network, 3D Card Stack Physics, Glowing Telemetry HUD, Dynamic Sub-headline Rotator
 - **AI Assistant:** Embedded conversational copilot trained on Kartik's projects, technical skills, and research
 
----
+
 
 ## 💻 Local Development
 
