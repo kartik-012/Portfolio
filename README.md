@@ -66,7 +66,6 @@ An ultra-premium, futuristic AI Engineer portfolio built with a dark cyber glass
 - **AI Assistant:** Embedded conversational copilot trained on Kartik's projects, technical skills, and research
 
 
-
 ## 💻 Local Development
 
 1. **Clone the repository:**
