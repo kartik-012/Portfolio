@@ -11,7 +11,6 @@ import { Certifications } from "@/components/portfolio/Certifications";
 import { Contact } from "@/components/portfolio/Contact";
 import { ResumeModal } from "@/components/portfolio/ResumeModal";
 import { CommandPalette } from "@/components/portfolio/CommandPalette";
-import { AiChatAssistant } from "@/components/portfolio/AiChatAssistant";
 import { useScrollReveal } from "@/components/portfolio/useReveal";
 
 export const Route = createFileRoute("/")({
@@ -121,8 +120,7 @@ function Index() {
       <Certifications />
       <Contact />
 
-      {/* Floating Interactive Assistants & Modals */}
-      <AiChatAssistant />
+      {/* Modals and Overlays */}
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
