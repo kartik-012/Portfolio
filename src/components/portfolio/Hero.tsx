@@ -16,7 +16,11 @@ const ROTATING_PHRASES = [
   "Interactive Calculator",
 ];
 
-export function Hero() {
+interface HeroProps {
+  onOpenResume?: () => void;
+}
+
+export function Hero({ onOpenResume }: HeroProps = {}) {
   const [phraseIdx, setPhraseIdx] = useState(0);
   const [fade, setFade] = useState(true);
 
@@ -133,16 +137,16 @@ export function Hero() {
                 </span>
               </a>
 
-              <a
-                href="/Kartik_Raikar_Resume.pdf"
-                download="Kartik_Raikar_Resume.pdf"
-                className="group inline-flex items-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-6 py-3.5 text-sm font-semibold text-emerald-400 backdrop-blur-md transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20"
+              <button
+                type="button"
+                onClick={onOpenResume}
+                className="group inline-flex items-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-6 py-3.5 text-sm font-semibold text-emerald-400 backdrop-blur-md transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 cursor-pointer"
               >
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
                 </svg>
-                <span>Download Resume</span>
-              </a>
+                <span>Interactive Resume</span>
+              </button>
 
               <a
                 href="#contact"

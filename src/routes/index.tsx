@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
@@ -8,6 +9,9 @@ import { Projects } from "@/components/portfolio/Projects";
 import { LeadershipAchievements } from "@/components/portfolio/LeadershipAchievements";
 import { Certifications } from "@/components/portfolio/Certifications";
 import { Contact } from "@/components/portfolio/Contact";
+import { ResumeModal } from "@/components/portfolio/ResumeModal";
+import { CommandPalette } from "@/components/portfolio/CommandPalette";
+import { AiChatAssistant } from "@/components/portfolio/AiChatAssistant";
 import { useScrollReveal } from "@/components/portfolio/useReveal";
 
 export const Route = createFileRoute("/")({
@@ -17,7 +21,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "AI Engineer building full-stack AI systems, LLM evaluation pipelines, and transformers. See featured projects and skills.",
+          "AI Engineer building production AIOps incident engines, version-partitioned RAG architectures, MCP servers, and transformers from scratch. View 10 quantitative benchmarks.",
       },
       { property: "og:title", content: "Kartik Raikar — AI Systems & LLM Engineer" },
       {
@@ -35,11 +39,29 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   useScrollReveal();
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isCommandOpen, setIsCommandOpen] = useState(false);
+
+  // Global keyboard shortcut: Cmd+K / Ctrl+K
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCommandOpen((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
-    <main className="bg-background">
-      <Nav />
-      <Hero />
+    <main className="bg-background relative min-h-screen">
+      <Nav
+        onOpenResume={() => setIsResumeOpen(true)}
+        onOpenCommand={() => setIsCommandOpen(true)}
+      />
+      <Hero onOpenResume={() => setIsResumeOpen(true)} />
       <About />
       <Skills />
       <Process />
@@ -47,6 +69,18 @@ function Index() {
       <LeadershipAchievements />
       <Certifications />
       <Contact />
+
+      {/* Floating Interactive Assistants & Modals */}
+      <AiChatAssistant />
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
+      <CommandPalette
+        isOpen={isCommandOpen}
+        onClose={() => setIsCommandOpen(false)}
+        onOpenResume={() => setIsResumeOpen(true)}
+      />
     </main>
   );
 }

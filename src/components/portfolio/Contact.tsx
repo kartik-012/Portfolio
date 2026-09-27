@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from "react";
+import { toast } from "sonner";
 
 export function Contact() {
   const [copiedType, setCopiedType] = useState<string | null>(null);
@@ -6,6 +7,10 @@ export function Contact() {
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text);
     setCopiedType(type);
+    toast.success(`${type} copied to clipboard!`, {
+      description: text,
+      duration: 3000,
+    });
     setTimeout(() => setCopiedType(null), 2500);
   };
 

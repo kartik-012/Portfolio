@@ -11,7 +11,12 @@ const LINKS = [
   { id: "contact", label: "Contact" },
 ];
 
-export function Nav() {
+interface NavProps {
+  onOpenResume?: () => void;
+  onOpenCommand?: () => void;
+}
+
+export function Nav({ onOpenResume, onOpenCommand }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
@@ -68,17 +73,31 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
-          <a
-            href="/Kartik_Raikar_Resume.pdf"
-            download="Kartik_Raikar_Resume.pdf"
+        <div className="flex items-center gap-2.5">
+          {/* Spotlight Palette Search Button */}
+          <button
+            onClick={onOpenCommand}
+            aria-label="Open command palette (Ctrl+K)"
+            className="hidden items-center gap-1.5 rounded-full border border-border/80 bg-card/60 px-3 py-1.5 text-xs font-semibold text-muted-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:text-foreground md:inline-flex"
+          >
+            <span className="text-xs">🔍</span>
+            <span className="text-[11px]">Search</span>
+            <kbd className="rounded bg-secondary/80 px-1.5 py-0.5 font-mono text-[9px] font-bold text-muted-foreground">
+              ⌘K
+            </kbd>
+          </button>
+
+          {/* In-Browser Resume Modal Trigger */}
+          <button
+            onClick={onOpenResume}
             className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:text-primary sm:inline-flex"
           >
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
             </svg>
             Resume
-          </a>
+          </button>
+
           <a
             href="#contact"
             className="hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-105 glow-red sm:inline-block"
@@ -105,19 +124,44 @@ export function Nav() {
           open ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <ul className="mx-5 mt-3 space-y-1 rounded-2xl border border-border bg-card p-3">
-          {LINKS.map((l) => (
-            <li key={l.id}>
-              <a
-                href={`#${l.id}`}
-                onClick={() => setOpen(false)}
-                className="block rounded-xl px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="mx-5 mt-3 space-y-2 rounded-2xl border border-border bg-card p-3">
+          <div className="grid grid-cols-2 gap-2 pb-2 border-b border-border/50">
+            <button
+              onClick={() => {
+                setOpen(false);
+                onOpenCommand?.();
+              }}
+              className="flex items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-secondary/60 py-2 text-xs font-semibold text-foreground"
+            >
+              <span>🔍</span>
+              <span>Search (⌘K)</span>
+            </button>
+            <button
+              onClick={() => {
+                setOpen(false);
+                onOpenResume?.();
+              }}
+              className="flex items-center justify-center gap-1.5 rounded-xl bg-primary py-2 text-xs font-semibold text-primary-foreground glow-red"
+            >
+              <span>📄</span>
+              <span>View Resume</span>
+            </button>
+          </div>
+
+          <ul className="space-y-1">
+            {LINKS.map((l) => (
+              <li key={l.id}>
+                <a
+                  href={`#${l.id}`}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </header>
   );
