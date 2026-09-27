@@ -8,20 +8,26 @@ interface Message {
 }
 
 const KNOWLEDGE_BASE: Record<string, string> = {
-  atlasos:
-    "AtlasOS is an autonomous web-based AI operating system and intelligent workspace featuring windowed multitasking, terminal execution, file system sandbox, and autonomous co-pilot agents built with React 19 and FastAPI.",
-  atlas:
-    'Atlas AI Resume ("Talk with my Resume.") is a production-quality full-stack AI Resume Portal built with React 19, Express/Node, and Gemini 3.5 Flash. It features an interactive PDF viewer with real-time keyword highlights, Dual-Engine RAG (Gemini Embedding 2 Preview with cosine similarity + keyword fallback), Server-Sent Events (SSE) word-by-word streaming, Recruiter Telemetry Console with SVG area charts, and a RAG Index Studio for live document embedding.',
-  apexrag:
-    "ApexRAG is a production-grade RAG evaluation harness benchmarking 5 retrieval strategies (Simple BM25, Semantic Vector, Hybrid RRF, Cross-Encoder Rerank, and Learned ML Router) across 100 human-verified Q&A pairs on React documentation — operating at $0 marginal cost with ChromaDB, Ollama, and scikit-learn.",
+  aiops:
+    "AIOps Root Cause Correlator is an autonomous incident correlation engine resolving cascading microservice alert storms in 0.78s (down from 1–4 hours of manual tracing), achieving 100% Top-1 RCA accuracy across 30 benchmark scenarios. Built with Python, FastAPI, PostgreSQL, Redis, NetworkX, and Three.js.",
+  versionrag:
+    "VersionRAG is an enterprise RAG architecture resolving cross-version code contamination, eliminating hallucinated deprecated API calls from 62.5% to 0.0% via database-enforced version-partitioned vector indexing. Features a structure-aware AST semantic diff engine with 94.2% accuracy and 98.4% retrieval precision @ k=6.",
   mcp:
     "GitHub MCP Toolkit is an enterprise Model Context Protocol (MCP) server with 12+ executable tools, featuring a Preview-Token Two-Phase protocol to eliminate blind LLM mutations, a file-backed Saga transaction journal for atomic rollbacks, a pure-Python TF-IDF vector engine, and an ABAC policy engine.",
-  catalyst:
-    "RagaAI Catalyst is an enterprise platform scoring LLM outputs across faithfulness, relevance, toxicity, and correctness with 5 model providers (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral) via WebSocket streaming.",
+  apexrag:
+    "ApexRAG is a production-grade RAG evaluation harness benchmarking 5 retrieval strategies (Simple BM25, Semantic Vector, Hybrid RRF, Cross-Encoder Rerank, and Learned ML Router) across 100 human-verified Q&A pairs on React documentation — operating at $0 marginal cost with ChromaDB, Ollama, and scikit-learn.",
+  atlas:
+    'Atlas AI Resume ("Talk with my Resume.") is a production-quality full-stack AI Resume Portal built with React 19, Express/Node, and Gemini 3.5 Flash. It features an interactive PDF viewer with real-time keyword highlights, Dual-Engine RAG (Gemini Embedding 2 Preview with cosine similarity + keyword fallback), Server-Sent Events (SSE) word-by-word streaming, Recruiter Telemetry Console with SVG area charts, and a RAG Index Studio for live document embedding.',
+  atlasos:
+    "AtlasOS is an autonomous web-based AI operating system and intelligent workspace featuring windowed multitasking, terminal execution, file system sandbox, and autonomous co-pilot agents built with React 19 and FastAPI.",
   debate:
     "AI Debate Arena is a multi-agent courtroom platform with real-time argument generation, persona synthesis, and live WebSocket streaming between Gemini, GPT-4, and Claude.",
+  catalyst:
+    "RagaAI Catalyst is an enterprise platform scoring LLM outputs across faithfulness, relevance, toxicity, and correctness with 5 model providers (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral) via WebSocket streaming.",
   numpygpt:
     "NumPyGPT is a full GPT-style transformer built completely from scratch using pure TypeScript/matrix math without ML frameworks — featuring 8-head multi-head attention, layer norm, and interactive attention weight visualization.",
+  calculator:
+    "Calculator is a modern interactive calculator application with clean glassmorphic UI, full keyboard support, calculation history, and responsive design built with HTML, CSS, and JavaScript.",
   skills:
     "Technical profile: Python, FastAPI, React 19, Express.js, TypeScript, Neo4j, MongoDB, VectorDBs, Docker, and PyTorch. Maintaining an 8.5 CGPA in B.E. AI & ML at VTU.",
   contact:
@@ -29,13 +35,16 @@ const KNOWLEDGE_BASE: Record<string, string> = {
 };
 
 const SUGGESTIONS = [
-  { label: "⚡ ApexRAG", key: "apexrag" },
+  { label: "⚡ AIOps Correlator", key: "aiops" },
+  { label: "📚 VersionRAG", key: "versionrag" },
   { label: "🛠️ GitHub MCP", key: "mcp" },
-  { label: "💻 AtlasOS", key: "atlasos" },
+  { label: "⚡ ApexRAG", key: "apexrag" },
   { label: "🚀 Atlas AI Resume", key: "atlas" },
-  { label: "⚡ RagaAI Catalyst", key: "catalyst" },
+  { label: "💻 AtlasOS", key: "atlasos" },
   { label: "🏛️ AI Debate Arena", key: "debate" },
+  { label: "⚡ RagaAI Catalyst", key: "catalyst" },
   { label: "🧠 NumPyGPT", key: "numpygpt" },
+  { label: "🔢 Calculator", key: "calculator" },
 ];
 
 export function AiChatAssistant() {
@@ -43,7 +52,7 @@ export function AiChatAssistant() {
     {
       id: "init",
       sender: "assistant",
-      text: "Hi! I'm Kartik's AI Portfolio Assistant. Ask me about ApexRAG, GitHub MCP, AtlasOS, Atlas AI Resume, RagaAI Catalyst, AI Debate Arena, or NumPyGPT.",
+      text: "Hi! I'm Kartik's AI Portfolio Assistant. Ask me about AIOps Correlator, VersionRAG, GitHub MCP, ApexRAG, Atlas AI Resume, AtlasOS, AI Debate Arena, RagaAI Catalyst, NumPyGPT, or Calculator.",
     },
   ]);
   const [input, setInput] = useState("");

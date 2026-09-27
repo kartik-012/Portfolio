@@ -4,13 +4,16 @@ import { ProjectCardStack } from "./ProjectCardStack";
 import { TelemetryHUD } from "./TelemetryHUD";
 
 const ROTATING_PHRASES = [
-  "ApexRAG Benchmarking Engine",
+  "AIOps Root Cause Correlator",
+  "VersionRAG Documentation Intel",
   "GitHub MCP Protocol Server",
-  "AtlasOS AI Workspace",
+  "ApexRAG Benchmarking Engine",
   "Atlas AI Resume Portal",
+  "AtlasOS AI Workspace",
+  "AI Debate Arena Platform",
   "RagaAI Catalyst Platform",
-  "Multi-Agent Debate Arena",
   "NumPyGPT from Scratch",
+  "Interactive Calculator",
 ];
 
 export function Hero() {
@@ -62,13 +65,12 @@ export function Hero() {
               className="reveal inline-flex items-center gap-3 rounded-full border border-primary/40 bg-card/85 p-1.5 pr-4.5 backdrop-blur-xl shadow-[0_0_30px_-5px_color-mix(in_oklab,var(--primary)_35%,transparent)]"
               data-reveal
             >
-              <div className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-primary shadow-md ring-2 ring-primary/30">
+              <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-primary shadow-md ring-2 ring-primary/30">
                 <img
                   src="/kartik.jpg"
                   alt="Kartik Raikar"
                   className="h-full w-full object-cover object-[center_48%] scale-110"
                 />
-                <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-black" />
               </div>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
@@ -111,8 +113,8 @@ export function Hero() {
               data-reveal
               style={{ ["--reveal-delay" as string]: "240ms" }}
             >
-              Engineering enterprise-grade LLM evaluation platforms, automated RAG factuality auditors,
-              multi-agent debate arenas, and custom transformers built from first principles.
+              Engineering autonomous AIOps incident engines, enterprise RAG architectures,
+              MCP protocol servers, multi-agent debate arenas, and custom transformers from first principles.
               Specializing in Python, FastAPI, and React.js.
             </p>
 

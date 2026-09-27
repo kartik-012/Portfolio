@@ -85,7 +85,7 @@ const STACK = [
 ];
 
 const STATS = [
-  { value: "7", label: "Flagship AI Systems" },
+  { value: "10", label: "Flagship AI Systems" },
   { value: "5", label: "LLMs Orchestrated" },
   { value: "8.5", label: "CGPA (AI & ML @ VTU)" },
   { value: "100%", label: "From Scratch Transformer" },
@@ -161,8 +161,8 @@ export function About() {
             style={{ ["--reveal-delay" as string]: "100ms" }}
           >
             I am an <strong className="font-bold text-white underline decoration-white/40 underline-offset-4">AI &amp; Machine Learning Engineer</strong> passionate
-            about architecting high-performance LLM evaluation platforms, multi-agent debate engines,
-            factuality auditing systems, and neural transformers built from mathematical first principles.
+            about architecting high-performance AIOps incident engines, enterprise RAG architectures,
+            MCP protocol servers, multi-agent debate arenas, and neural transformers built from mathematical first principles.
           </p>
 
           <p

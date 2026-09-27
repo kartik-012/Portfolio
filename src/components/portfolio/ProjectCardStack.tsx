@@ -13,50 +13,36 @@ interface ProjectCard {
 
 const CARDS: ProjectCard[] = [
   {
-    id: "atlas-os",
+    id: "aiops-correlator",
     n: "01",
-    title: "AtlasOS",
-    category: "AI DESKTOP OS & WORKSPACE",
-    desc: "Futuristic web-based AI operating system featuring windowed multi-tasking, terminal execution, and autonomous agent co-pilots.",
-    tags: ["React 19", "TypeScript", "FastAPI", "WebSockets", "Multi-Agent"],
+    title: "AIOps Root Cause Correlator",
+    category: "AIOPS INCIDENT INTELLIGENCE",
+    desc: "Autonomous incident correlation engine resolving cascading microservice alert storms in 0.78s with 100% Top-1 RCA accuracy.",
+    tags: ["Python", "FastAPI", "PostgreSQL", "NetworkX", "Three.js"],
     metrics: [
-      { label: "Frame Physics", value: "60 FPS" },
-      { label: "IPC Sync", value: "< 15ms" },
-      { label: "Sandbox ISO", value: "100%" },
+      { label: "Resolution", value: "0.78s" },
+      { label: "RCA Accuracy", value: "100%" },
+      { label: "Detection", value: "EWMA z>2σ" },
     ],
     accentColor: "from-rose-500/20 to-primary/30 border-rose-500/40",
   },
   {
-    id: "atlas-ai-resume",
+    id: "version-rag",
     n: "02",
-    title: "Atlas AI Resume",
-    category: "TALK WITH MY RESUME • DUAL-ENGINE RAG",
-    desc: 'Full-stack AI Resume Portal powered by Gemini 3.5 Flash, Dual-Engine RAG, SSE streaming, and interactive PDF keyword highlights.',
-    tags: ["React 19", "Gemini 3.5", "Express", "Vector RAG", "SSE Stream"],
+    title: "VersionRAG",
+    category: "DOCUMENTATION INTELLIGENCE ENGINE",
+    desc: "Enterprise RAG resolving cross-version code contamination, eliminating 62.5% → 0.0% hallucinated deprecated API calls.",
+    tags: ["Python 3.12", "FastAPI", "PostgreSQL", "pgvector", "React 18"],
     metrics: [
-      { label: "SSE Latency", value: "< 18ms" },
-      { label: "Layout Shift", value: "0ms" },
-      { label: "Vector Chunks", value: "1,864" },
+      { label: "Contamination", value: "62.5%→0%" },
+      { label: "Precision@6", value: "98.4%" },
+      { label: "HNSW", value: "5.4ms" },
     ],
     accentColor: "from-blue-500/20 to-indigo-600/30 border-blue-500/40",
   },
   {
-    id: "apex-rag",
-    n: "03",
-    title: "ApexRAG Evaluation",
-    category: "RAG EVALUATION & 5-STRATEGY BENCHMARK",
-    desc: "Production-grade evaluation harness benchmarking 5 retrieval strategies across 100 React doc Q&As on local hardware at $0 cost.",
-    tags: ["Python", "FastAPI", "ChromaDB", "RRF Fusion", "Ollama"],
-    metrics: [
-      { label: "Recall@4", value: "61% ➔ 85%" },
-      { label: "Infra Cost", value: "$0.00" },
-      { label: "Corpus Chunks", value: "2,580" },
-    ],
-    accentColor: "from-cyan-500/20 to-blue-600/30 border-cyan-500/40",
-  },
-  {
     id: "github-mcp",
-    n: "04",
+    n: "03",
     title: "GitHub MCP Toolkit",
     category: "MODEL CONTEXT PROTOCOL & SAGA ENGINE",
     desc: "Enterprise MCP server with two-phase preview-token protocol, Saga pattern action rollbacks, and pure-Python TF-IDF engine.",
@@ -69,22 +55,50 @@ const CARDS: ProjectCard[] = [
     accentColor: "from-teal-500/20 to-emerald-600/30 border-teal-500/40",
   },
   {
-    id: "raga-ai",
-    n: "05",
-    title: "RagaAI Catalyst",
-    category: "ENTERPRISE LLM EVALUATION",
-    desc: "Full-stack evaluation engine scoring outputs across faithfulness, relevance, toxicity, and correctness with 5 leading model providers.",
-    tags: ["Python", "FastAPI", "React", "WebSocket", "MongoDB"],
+    id: "apex-rag",
+    n: "04",
+    title: "ApexRAG Evaluation",
+    category: "RAG EVALUATION & 5-STRATEGY BENCHMARK",
+    desc: "Production-grade evaluation harness benchmarking 5 retrieval strategies across 100 React doc Q&As on local hardware at $0 cost.",
+    tags: ["Python", "FastAPI", "ChromaDB", "RRF Fusion", "Ollama"],
     metrics: [
-      { label: "Faithfulness", value: "99.4%" },
-      { label: "Providers", value: "5 LLMs" },
-      { label: "WS Latency", value: "< 45ms" },
+      { label: "Recall@4", value: "61% ➔ 85%" },
+      { label: "Infra Cost", value: "$0.00" },
+      { label: "Corpus Chunks", value: "2,580" },
     ],
-    accentColor: "from-emerald-500/20 to-teal-600/30 border-emerald-500/40",
+    accentColor: "from-cyan-500/20 to-blue-600/30 border-cyan-500/40",
+  },
+  {
+    id: "atlas-ai-resume",
+    n: "05",
+    title: "Atlas AI Resume",
+    category: "TALK WITH MY RESUME • DUAL-ENGINE RAG",
+    desc: "Full-stack AI Resume Portal powered by Gemini 3.5 Flash, Dual-Engine RAG, SSE streaming, and interactive PDF keyword highlights.",
+    tags: ["React 19", "Gemini 3.5", "Express", "Vector RAG", "SSE Stream"],
+    metrics: [
+      { label: "SSE Latency", value: "< 18ms" },
+      { label: "Layout Shift", value: "0ms" },
+      { label: "Vector Chunks", value: "1,864" },
+    ],
+    accentColor: "from-purple-500/20 to-violet-600/30 border-purple-500/40",
+  },
+  {
+    id: "atlas-os",
+    n: "06",
+    title: "AtlasOS",
+    category: "AI DESKTOP OS & WORKSPACE",
+    desc: "Futuristic web-based AI operating system featuring windowed multi-tasking, terminal execution, and autonomous agent co-pilots.",
+    tags: ["React 19", "TypeScript", "FastAPI", "WebSockets", "Multi-Agent"],
+    metrics: [
+      { label: "Frame Physics", value: "60 FPS" },
+      { label: "IPC Sync", value: "< 15ms" },
+      { label: "Sandbox ISO", value: "100%" },
+    ],
+    accentColor: "from-amber-500/20 to-orange-600/30 border-amber-500/40",
   },
   {
     id: "debate-arena",
-    n: "06",
+    n: "07",
     title: "AI Debate Arena",
     category: "MULTI-AGENT ORCHESTRATION",
     desc: "Autonomous multi-agent courtroom system orchestrating real-time streaming debates between Gemini, GPT-4, and Claude with automated judging.",
@@ -97,8 +111,22 @@ const CARDS: ProjectCard[] = [
     accentColor: "from-violet-500/20 to-purple-600/30 border-violet-500/40",
   },
   {
+    id: "raga-ai",
+    n: "08",
+    title: "RagaAI Catalyst",
+    category: "ENTERPRISE LLM EVALUATION",
+    desc: "Full-stack evaluation engine scoring outputs across faithfulness, relevance, toxicity, and correctness with 5 leading model providers.",
+    tags: ["Python", "FastAPI", "React", "WebSocket", "MongoDB"],
+    metrics: [
+      { label: "Faithfulness", value: "99.4%" },
+      { label: "Providers", value: "5 LLMs" },
+      { label: "WS Latency", value: "< 45ms" },
+    ],
+    accentColor: "from-emerald-500/20 to-teal-600/30 border-emerald-500/40",
+  },
+  {
     id: "numpygpt",
-    n: "07",
+    n: "09",
     title: "NumPyGPT From Scratch",
     category: "DEEP LEARNING INTERNALS",
     desc: "Full GPT-style Transformer built completely from scratch without ML frameworks. Includes 8 attention heads, layer norm, and interactive visualizer.",
@@ -109,6 +137,20 @@ const CARDS: ProjectCard[] = [
       { label: "Visualizer", value: "Active" },
     ],
     accentColor: "from-amber-500/20 to-orange-600/30 border-amber-500/40",
+  },
+  {
+    id: "calculator",
+    n: "10",
+    title: "Calculator",
+    category: "FRONTEND ENGINEERING",
+    desc: "Modern interactive calculator with clean glassmorphic UI, keyboard support, and calculation history.",
+    tags: ["HTML", "CSS", "JavaScript", "Responsive"],
+    metrics: [
+      { label: "Keyboard", value: "100%" },
+      { label: "UI FPS", value: "60 FPS" },
+      { label: "Dependencies", value: "0" },
+    ],
+    accentColor: "from-pink-500/20 to-rose-600/30 border-pink-500/40",
   },
 ];
 
@@ -257,13 +299,13 @@ export function ProjectCardStack() {
                 {/* View details link */}
                 <div className="mt-4 flex items-center justify-between pt-1">
                   <a
-                    href="#projects"
-                    onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-primary transition-all hover:underline"
-                  >
-                    <span>Inspect Full Project</span>
-                    <span>→</span>
-                  </a>
+                     href="#projects"
+                     onClick={(e) => e.stopPropagation()}
+                     className="inline-flex items-center gap-1.5 text-xs font-bold text-primary transition-all hover:underline"
+                   >
+                     <span>Inspect Full Project</span>
+                     <span>→</span>
+                   </a>
 
                   <div className="flex gap-1">
                     {CARDS.map((_, dotIdx) => (

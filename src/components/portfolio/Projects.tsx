@@ -26,127 +26,75 @@ interface ProjectItem {
 const PROJECTS: ProjectItem[] = [
   {
     n: "01",
-    badge: "Autonomous AI Operating System",
-    title: "AtlasOS",
-    tagline: "Next-Gen Web-Based AI Desktop Environment & Multi-Agent OS",
-    body: "A futuristic web-based AI operating system and intelligent workspace. Features windowed multi-tasking, integrated virtual web terminal, file system sandbox, autonomous agent co-pilots, and dynamic system telemetry built with React 19, TypeScript, and FastAPI.",
+    badge: "AIOps Incident Intelligence",
+    title: "AIOps Root Cause Correlator",
+    tagline: "Autonomous Incident Correlation Engine for Microservice Alert Storms",
+    body: "An autonomous incident correlation engine that resolves cascading microservice alert storms in 0.78s (down from 1–4 hours of manual tracing), achieving 100% Top-1 RCA accuracy across 30 benchmark scenarios. Features dynamic EWMA anomaly detection with causal DAG traversal and a real-time 3D topology telemetry visualizer.",
     metrics: [
-      { val: "60 FPS", label: "Frame Rate Physics", subText: "Zero layout-thrashing UI", badge: "PERFORMANCE" },
-      { val: "< 15ms", label: "IPC Sync Latency", subText: "Web Worker virtual process bus", badge: "LATENCY" },
-      { val: "100%", label: "Sandbox Isolation", subText: "Virtual FS security boundary", badge: "SECURITY" },
-      { val: "4 Co-Pilots", label: "Autonomous Agents", subText: "Concurrent terminal execution", badge: "ORCHESTRATION" },
+      { val: "0.78s", label: "Resolution Time", subText: "Down from 1–4 hours manual", badge: "SPEED" },
+      { val: "100%", label: "Top-1 RCA Accuracy", subText: "30 benchmark scenarios", badge: "ACCURACY" },
+      { val: "z > 2.0σ", label: "EWMA Detection", subText: "Dynamic anomaly threshold", badge: "DETECTION" },
+      { val: "3D WebGL", label: "Topology Visualizer", subText: "Three.js + WebSockets", badge: "VISUALIZATION" }
     ],
     challenges: [
-      "Managing smooth, non-blocking window state and 60 FPS gesture physics in React 19 without layout thrashing during multi-window multitasking.",
-      "Synchronizing live terminal state, web worker file execution, and real-time telemetry HUD with background FastAPI agent sub-processes under <15ms IPC latency.",
+      "Correlating cascading alert storms across microservice dependency graphs with 1–4 hour manual tracing baselines.",
+      "Isolating multi-root-cause failures from noisy, high-cardinality observability signals without false-positive propagation."
     ],
     solutions: [
-      "Engineered a custom z-index stack manager with decoupled gesture physics and virtual event bus for isolated window render trees.",
-      "Implemented WebSockets multiplexing for live process execution logs and Web Workers for real-time memory telemetry calculations.",
+      "Implemented dynamic EWMA anomaly detection (z > 2.0σ) with causal DAG traversal in NetworkX, isolating multi-root-cause failures and achieving 100% precision/recall in false-positive alert suppression.",
+      "Built a real-time 3D topology telemetry visualizer with Three.js/WebGL and streaming WebSockets, supporting counterfactual what-if blast radius simulation over PostgreSQL 16 + pgvector."
     ],
     interviewDeepDive: [
-      "How to build non-blocking windowing managers in React 19 by decoupling drag events from state rerenders.",
-      "Architecting isolated execution environments inside browser sandboxes for multi-agent terminal copilots.",
+      "Designing causal DAG traversal algorithms for multi-root-cause fault isolation in microservice topologies.",
+      "Engineering real-time 3D network visualizations with Three.js for incident blast radius simulation."
     ],
     highlights: [
-      "Windowed desktop environment with fluid 60 FPS gesture physics and multi-window multitasking",
-      "Autonomous agent workspace copilot with live tool execution and terminal access",
-      "Virtual file system sandbox, process manager, and real-time telemetry HUD (<15ms IPC latency)",
+      "0.78s autonomous incident resolution (replacing 1–4 hours of manual tracing)",
+      "100% Top-1 RCA accuracy with dynamic EWMA anomaly detection (z > 2.0σ)",
+      "Real-time 3D topology visualizer with counterfactual blast radius simulation",
+      "100% precision/recall in false-positive alert suppression"
     ],
-    tags: ["React 19", "TypeScript", "FastAPI", "WebSockets", "TailwindCSS", "Multi-Agent"],
-    githubUrl: "https://github.com/kartik-012/atlas-os",
-    demoUrl: "#home",
+    tags: ["Python", "FastAPI", "PostgreSQL", "Redis", "NetworkX", "Three.js"],
+    githubUrl: "https://github.com/kartik-012/aiops-root-cause-correlator",
+    demoUrl: "https://github.com/kartik-012/aiops-root-cause-correlator"
   },
   {
     n: "02",
-    badge: "Flagship Production RAG System",
-    title: "Atlas AI Resume",
-    tagline: '"Talk with my Resume." — Full-Stack AI Career Portal & RAG Studio',
-    body: "A production-quality, full-stack AI Resume Portal engineered with futuristic dark glassmorphic aesthetics and smooth micro-interactions. Enables recruiters to explore credentials interactively, inspect a high-fidelity PDF layout with real-time keyword highlights, and converse with Atlas AI—an intelligent agent powered by Gemini 3.5 Flash, dynamic vector embeddings, Dual-Engine retrieval, and Server-Sent Events (SSE) word-by-word streaming.",
+    badge: "Documentation Intelligence Engine",
+    title: "VersionRAG",
+    tagline: "Enterprise RAG Architecture Resolving Cross-Version Code Contamination",
+    body: "An enterprise RAG architecture that resolves cross-version code contamination, eliminating hallucinated deprecated API calls from 62.5% to 0.0% via database-enforced version-partitioned vector indexing. Features a structure-aware AST semantic diff engine and a 4-step Chain-of-Version reasoning pipeline.",
     metrics: [
-      { val: "< 18ms", label: "SSE Stream Latency", subText: "Word-by-word token delivery", badge: "STREAMING" },
-      { val: "0ms", label: "PDF Layout Shift", subText: "Canvas text highlight sync", badge: "PRECISION" },
-      { val: "1,864", label: "Document Chunks", subText: "Gemini Embedding 2 Preview", badge: "VECTOR INDEX" },
-      { val: "Dual Engine", label: "Vector + Keyword", subText: "Cosine similarity + BM25", badge: "RETRIEVAL" },
+      { val: "0.0%", label: "API Contamination", subText: "Down from 62.5% hallucination", badge: "ACCURACY" },
+      { val: "98.4%", label: "Precision @ k=6", subText: "Up from 41.7% (+136%)", badge: "RETRIEVAL" },
+      { val: "94.2%", label: "AST Diff Accuracy", subText: "Undocumented breaking changes", badge: "DETECTION" },
+      { val: "5.4ms", label: "HNSW Latency", subText: "pgvector indexed search", badge: "LATENCY" }
     ],
     challenges: [
-      "Preventing semantic search degradation on hyper-specific resume queries (e.g., specific job dates vs tech stack names).",
-      "Calculating precise PDF canvas bounding boxes for real-time keyword highlights without causing UI lag during <18ms SSE LLM streaming.",
+      "Cross-version code contamination causing 62.5% hallucinated deprecated API calls in retrieval results.",
+      "Undocumented breaking changes between library versions going undetected by standard text-diff approaches."
     ],
     solutions: [
-      "Developed Dual-Engine Search combining Gemini 3.5 Flash vector embeddings (cosine similarity) with BM25 keyword fallback.",
-      "Engineered an SSE streaming queue with low-latency client state hydration and PDF text layer alignment.",
+      "Developed database-enforced version-partitioned vector indexing, eliminating cross-version contamination from 62.5% to 0.0%.",
+      "Engineered a structure-aware AST semantic diff engine detecting undocumented breaking changes with 94.2% accuracy, boosting retrieval precision @ k=6 from 41.7% to 98.4% (+136%).",
+      "Integrated a 4-step Chain-of-Version reasoning pipeline with live X-Ray diagnostic chunk inspection, Bcrypt-hashed OTP email auth, and resilient pgvector fallbacks."
     ],
     interviewDeepDive: [
-      "Designing hybrid vector-keyword retrieval pipelines to handle domain-specific terminology without vector drift.",
-      "Implementing zero-layout-shift PDF text highlighting using canvas overlays synced to search terms.",
+      "Why version-partitioned vector indexing eliminates cross-version contamination that standard RAG architectures miss.",
+      "Designing AST-level semantic diff engines for detecting undocumented breaking changes across library versions."
     ],
     highlights: [
-      "Dual-Engine Search: Gemini Embedding preview with cosine similarity + keyword fallback",
-      "Interactive PDF Viewer: Real-time keyword highlight, zoom controls, and instant printable layout",
-      "SaaS Recruiter Console: Real-time telemetry, session metrics, and interactive area charts",
-      "Floating Atlas AI Chatbot: SSE streaming (<18ms token latency), confidence scores & citations",
+      "Eliminated 62.5% → 0.0% hallucinated deprecated API contamination",
+      "Retrieval precision boosted from 41.7% → 98.4% (+136%) at 5.4ms HNSW latency",
+      "Structure-aware AST semantic diff engine with 94.2% breaking change detection accuracy",
+      "4-step Chain-of-Version reasoning pipeline with X-Ray chunk diagnostics"
     ],
-    tags: [
-      "React 19",
-      "Gemini 3.5 Flash",
-      "Express / Node",
-      "Vector Embeddings",
-      "SSE Streaming",
-      "Tailwind CSS v4",
-      "TypeScript",
-    ],
-    githubUrl: "https://github.com/kartikraikar2005/atlas-ai-resume.git",
-    demoUrl: "https://github.com/kartikraikar2005/atlas-ai-resume.git",
+    tags: ["Python 3.12", "FastAPI", "PostgreSQL", "pgvector", "React 18", "TypeScript", "Tailwind"],
+    githubUrl: "https://github.com/kartik-012/version-rag",
+    demoUrl: "https://github.com/kartik-012/version-rag"
   },
   {
     n: "03",
-    badge: "Production RAG Benchmarking Harness",
-    title: "ApexRAG",
-    tagline: "Production-Grade RAG Evaluation & 5-Strategy Benchmarking Harness ($0 Cost)",
-    body: "A research-grade RAG evaluation harness benchmarking 5 retrieval strategies (Simple BM25, Semantic Vector, Hybrid RRF, Cross-Encoder Rerank, and Learned ML Router) across 100 human-verified Q&A pairs on React documentation — operating entirely on local CPU hardware at $0 marginal infrastructure cost.",
-    metrics: [
-      { val: "61% → 85%", label: "Recall@4 Accuracy", subText: "Cross-Encoder Re-Ranker (+24% gain)", badge: "BENCHMARK" },
-      { val: "$0.00", label: "Marginal Cost", subText: "100% Local CPU & ChromaDB", badge: "INFRASTRUCTURE" },
-      { val: "2,580", label: "Corpus Chunks", subText: "React v17 (716) & react.dev (1,864)", badge: "CORPUS" },
-      { val: "100 Pairs", label: "Human Q&A Eval", subText: "0% synthetic data in eval set", badge: "GROUND TRUTH" },
-    ],
-    challenges: [
-      "Temporal semantic drift between React legacy v17 class docs (`componentDidMount`) and modern hooks docs (`useEffect`) causing BM25 Recall@4 to drop to 61%.",
-      "Score scale incompatibility: BM25 scores are unbounded [0, ∞) while Cosine similarity is bounded [-1, 1], breaking naive weighted score blending.",
-      "Document stem collisions across repos (e.g. `state.md` existing in both legacy and current doc structures).",
-    ],
-    solutions: [
-      "Achieved accuracy progression: Simple BM25 (61%) ➔ Semantic Vector (71%) ➔ Hybrid RRF (81%) ➔ Cross-Encoder Re-Ranker (85% Recall@4).",
-      "Implemented Reciprocal Rank Fusion (RRF, k=60) operating on ordinal rank positions, making merging corpus-agnostic without hyperparameter tuning.",
-      "Created path-relative globally unique `doc_id` indexing (`reactjs_org__content__docs__state`) to eliminate 100% of index overwrites.",
-      "Engineered a scikit-learn LogisticRegression Strategy Router trained on evaluation failure logs (~62% routing accuracy).",
-    ],
-    interviewDeepDive: [
-      "Why Reciprocal Rank Fusion (RRF, k=60) mathematically outperforms weighted score averaging when merging sparse (BM25) and dense (vector) metrics.",
-      "Causal failure attribution matrix: diagnosing Retrieval Miss (74%) vs Rank Error (13%) vs Chunk Boundary (0%) vs Hallucination (0%).",
-      "Building a dual-model local faithfulness debate engine (`llama3.1:8b` vs `phi3:mini`) to eliminate single-LLM judge self-preference bias (+8–12% false positive rate).",
-    ],
-    highlights: [
-      "5 Retrieval Strategies benchmarked (61% ➔ 85% Recall@4 progression with Cross-Encoder)",
-      "100% Zero-Cloud $0.00 local infra with ChromaDB, rank_bm25, sentence-transformers, and Ollama",
-      "Learned ML Strategy Router & Dual-LLM Faithfulness Debate Engine",
-      "Corpus Drift Detector monitoring vector centroid shifts with automated CI alerts",
-    ],
-    tags: [
-      "Python",
-      "FastAPI",
-      "ChromaDB",
-      "Sentence-Transformers",
-      "RAG Evaluation",
-      "Ollama",
-      "Scikit-Learn",
-    ],
-    githubUrl: "https://github.com/kartik-012/apex-rag",
-    demoUrl: "https://github.com/kartik-012/apex-rag",
-  },
-  {
-    n: "04",
     badge: "Model Context Protocol & Saga Engine",
     title: "GitHub MCP Toolkit",
     tagline: "Enterprise Model Context Protocol (MCP) Server with Two-Phase Auth & Saga Rollbacks",
@@ -195,40 +143,128 @@ const PROJECTS: ProjectItem[] = [
     demoUrl: "https://github.com/kartik-012/github-mcp-toolkit",
   },
   {
-    n: "05",
-    badge: "Enterprise LLM Evaluation",
-    title: "RagaAI Catalyst",
-    tagline: "Full-Stack Enterprise LLM Evaluation & Benchmarking Platform",
-    body: "Architected a full-stack platform scoring LLM outputs across faithfulness, relevance, toxicity, and correctness. Integrated five LLM providers (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral) behind a unified REST API with WebSocket streaming for real-time benchmark telemetry and automated regression testing.",
+    n: "04",
+    badge: "Production RAG Benchmarking Harness",
+    title: "ApexRAG",
+    tagline: "Production-Grade RAG Evaluation & 5-Strategy Benchmarking Harness ($0 Cost)",
+    body: "A research-grade RAG evaluation harness benchmarking 5 retrieval strategies (Simple BM25, Semantic Vector, Hybrid RRF, Cross-Encoder Rerank, and Learned ML Router) across 100 human-verified Q&A pairs on React documentation — operating entirely on local CPU hardware at $0 marginal infrastructure cost.",
     metrics: [
-      { val: "99.4%", label: "Scoring Accuracy", subText: "Across 4 evaluation dimensions", badge: "ACCURACY" },
-      { val: "5 LLMs", label: "Orchestrated Providers", subText: "GPT-4, Claude, Gemini, Llama, Mistral", badge: "INTEGRATION" },
-      { val: "< 45ms", label: "WebSocket Telemetry", subText: "Real-time benchmark streaming", badge: "LATENCY" },
-      { val: "100%", label: "Toxicity Audit Rate", subText: "Automated regression testing", badge: "GUARDRAIL" },
+      { val: "61% → 85%", label: "Recall@4 Accuracy", subText: "Cross-Encoder Re-Ranker (+24% gain)", badge: "BENCHMARK" },
+      { val: "$0.00", label: "Marginal Cost", subText: "100% Local CPU & ChromaDB", badge: "INFRASTRUCTURE" },
+      { val: "2,580", label: "Corpus Chunks", subText: "React v17 (716) & react.dev (1,864)", badge: "CORPUS" },
+      { val: "100 Pairs", label: "Human Q&A Eval", subText: "0% synthetic data in eval set", badge: "GROUND TRUTH" },
     ],
     challenges: [
-      "High latency and API rate-limiting when scoring high-throughput LLM responses concurrently across 5 external providers.",
-      "Managing non-deterministic scoring outputs across heterogeneous model architectures.",
+      "Temporal semantic drift between React legacy v17 class docs (`componentDidMount`) and modern hooks docs (`useEffect`) causing BM25 Recall@4 to drop to 61%.",
+      "Score scale incompatibility: BM25 scores are unbounded [0, ∞) while Cosine similarity is bounded [-1, 1], breaking naive weighted score blending.",
+      "Document stem collisions across repos (e.g. `state.md` existing in both legacy and current doc structures).",
     ],
     solutions: [
-      "Constructed an asynchronous worker queue in FastAPI with WebSocket streaming (<45ms telemetry latency) for real-time scoring telemetry.",
-      "Implemented circuit breakers and exponential backoff retry handlers for external provider APIs.",
+      "Achieved accuracy progression: Simple BM25 (61%) ➔ Semantic Vector (71%) ➔ Hybrid RRF (81%) ➔ Cross-Encoder Re-Ranker (85% Recall@4).",
+      "Implemented Reciprocal Rank Fusion (RRF, k=60) operating on ordinal rank positions, making merging corpus-agnostic without hyperparameter tuning.",
+      "Created path-relative globally unique `doc_id` indexing (`reactjs_org__content__docs__state`) to eliminate 100% of index overwrites.",
+      "Engineered a scikit-learn LogisticRegression Strategy Router trained on evaluation failure logs (~62% routing accuracy).",
     ],
     interviewDeepDive: [
-      "Architecting asynchronous worker queues for multi-provider LLM benchmarking.",
-      "Real-time evaluation streaming using WebSockets for live regression dashboards.",
+      "Why Reciprocal Rank Fusion (RRF, k=60) mathematically outperforms weighted score averaging when merging sparse (BM25) and dense (vector) metrics.",
+      "Causal failure attribution matrix: diagnosing Retrieval Miss (74%) vs Rank Error (13%) vs Chunk Boundary (0%) vs Hallucination (0%).",
+      "Building a dual-model local faithfulness debate engine (`llama3.1:8b` vs `phi3:mini`) to eliminate single-LLM judge self-preference bias (+8–12% false positive rate).",
     ],
     highlights: [
-      "Unified REST API orchestrating 5 leading LLM providers (99.4% scoring accuracy)",
-      "WebSocket streaming with real-time multi-metric evaluation (<45ms latency)",
-      "Automated regression auditing and toxicity mitigation guardrails",
+      "5 Retrieval Strategies benchmarked (61% ➔ 85% Recall@4 progression with Cross-Encoder)",
+      "100% Zero-Cloud $0.00 local infra with ChromaDB, rank_bm25, sentence-transformers, and Ollama",
+      "Learned ML Strategy Router & Dual-LLM Faithfulness Debate Engine",
+      "Corpus Drift Detector monitoring vector centroid shifts with automated CI alerts",
     ],
-    tags: ["Python", "FastAPI", "React.js", "MongoDB", "LLMs", "WebSockets"],
-    githubUrl: "https://github.com/kartik-012/ragaai-catalyst",
-    demoUrl: "https://github.com/kartik-012/ragaai-catalyst",
+    tags: [
+      "Python",
+      "FastAPI",
+      "ChromaDB",
+      "Sentence-Transformers",
+      "RAG Evaluation",
+      "Ollama",
+      "Scikit-Learn",
+    ],
+    githubUrl: "https://github.com/kartik-012/apex-rag",
+    demoUrl: "https://github.com/kartik-012/apex-rag",
+  },
+  {
+    n: "05",
+    badge: "Flagship Production RAG System",
+    title: "Atlas AI Resume",
+    tagline: '"Talk with my Resume." — Full-Stack AI Career Portal & RAG Studio',
+    body: "A production-quality, full-stack AI Resume Portal engineered with futuristic dark glassmorphic aesthetics and smooth micro-interactions. Enables recruiters to explore credentials interactively, inspect a high-fidelity PDF layout with real-time keyword highlights, and converse with Atlas AI—an intelligent agent powered by Gemini 3.5 Flash, dynamic vector embeddings, Dual-Engine retrieval, and Server-Sent Events (SSE) word-by-word streaming.",
+    metrics: [
+      { val: "< 18ms", label: "SSE Stream Latency", subText: "Word-by-word token delivery", badge: "STREAMING" },
+      { val: "0ms", label: "PDF Layout Shift", subText: "Canvas text highlight sync", badge: "PRECISION" },
+      { val: "1,864", label: "Document Chunks", subText: "Gemini Embedding 2 Preview", badge: "VECTOR INDEX" },
+      { val: "Dual Engine", label: "Vector + Keyword", subText: "Cosine similarity + BM25", badge: "RETRIEVAL" },
+    ],
+    challenges: [
+      "Preventing semantic search degradation on hyper-specific resume queries (e.g., specific job dates vs tech stack names).",
+      "Calculating precise PDF canvas bounding boxes for real-time keyword highlights without causing UI lag during <18ms SSE LLM streaming.",
+    ],
+    solutions: [
+      "Developed Dual-Engine Search combining Gemini 3.5 Flash vector embeddings (cosine similarity) with BM25 keyword fallback.",
+      "Engineered an SSE streaming queue with low-latency client state hydration and PDF text layer alignment.",
+    ],
+    interviewDeepDive: [
+      "Designing hybrid vector-keyword retrieval pipelines to handle domain-specific terminology without vector drift.",
+      "Implementing zero-layout-shift PDF text highlighting using canvas overlays synced to search terms.",
+    ],
+    highlights: [
+      "Dual-Engine Search: Gemini Embedding preview with cosine similarity + keyword fallback",
+      "Interactive PDF Viewer: Real-time keyword highlight, zoom controls, and instant printable layout",
+      "SaaS Recruiter Console: Real-time telemetry, session metrics, and interactive area charts",
+      "Floating Atlas AI Chatbot: SSE streaming (<18ms token latency), confidence scores & citations",
+    ],
+    tags: [
+      "React 19",
+      "Gemini 3.5 Flash",
+      "Express / Node",
+      "Vector Embeddings",
+      "SSE Streaming",
+      "Tailwind CSS v4",
+      "TypeScript",
+    ],
+    githubUrl: "https://github.com/kartikraikar2005/atlas-ai-resume.git",
+    demoUrl: "https://github.com/kartikraikar2005/atlas-ai-resume.git",
   },
   {
     n: "06",
+    badge: "Autonomous AI Operating System",
+    title: "AtlasOS",
+    tagline: "Next-Gen Web-Based AI Desktop Environment & Multi-Agent OS",
+    body: "A futuristic web-based AI operating system and intelligent workspace. Features windowed multi-tasking, integrated virtual web terminal, file system sandbox, autonomous agent co-pilots, and dynamic system telemetry built with React 19, TypeScript, and FastAPI.",
+    metrics: [
+      { val: "60 FPS", label: "Frame Rate Physics", subText: "Zero layout-thrashing UI", badge: "PERFORMANCE" },
+      { val: "< 15ms", label: "IPC Sync Latency", subText: "Web Worker virtual process bus", badge: "LATENCY" },
+      { val: "100%", label: "Sandbox Isolation", subText: "Virtual FS security boundary", badge: "SECURITY" },
+      { val: "4 Co-Pilots", label: "Autonomous Agents", subText: "Concurrent terminal execution", badge: "ORCHESTRATION" },
+    ],
+    challenges: [
+      "Managing smooth, non-blocking window state and 60 FPS gesture physics in React 19 without layout thrashing during multi-window multitasking.",
+      "Synchronizing live terminal state, web worker file execution, and real-time telemetry HUD with background FastAPI agent sub-processes under <15ms IPC latency.",
+    ],
+    solutions: [
+      "Engineered a custom z-index stack manager with decoupled gesture physics and virtual event bus for isolated window render trees.",
+      "Implemented WebSockets multiplexing for live process execution logs and Web Workers for real-time memory telemetry calculations.",
+    ],
+    interviewDeepDive: [
+      "How to build non-blocking windowing managers in React 19 by decoupling drag events from state rerenders.",
+      "Architecting isolated execution environments inside browser sandboxes for multi-agent terminal copilots.",
+    ],
+    highlights: [
+      "Windowed desktop environment with fluid 60 FPS gesture physics and multi-window multitasking",
+      "Autonomous agent workspace copilot with live tool execution and terminal access",
+      "Virtual file system sandbox, process manager, and real-time telemetry HUD (<15ms IPC latency)",
+    ],
+    tags: ["React 19", "TypeScript", "FastAPI", "WebSockets", "TailwindCSS", "Multi-Agent"],
+    githubUrl: "https://github.com/kartik-012/atlas-os",
+    demoUrl: "#home",
+  },
+  {
+    n: "07",
     badge: "Multi-Agent Orchestration",
     title: "AI Debate Arena",
     tagline: "Autonomous Multi-Model Debate & Courtroom Visualizer",
@@ -261,7 +297,40 @@ const PROJECTS: ProjectItem[] = [
     demoUrl: "https://github.com/kartikraikar2005/debate-arena",
   },
   {
-    n: "07",
+    n: "08",
+    badge: "Enterprise LLM Evaluation",
+    title: "RagaAI Catalyst",
+    tagline: "Full-Stack Enterprise LLM Evaluation & Benchmarking Platform",
+    body: "Architected a full-stack platform scoring LLM outputs across faithfulness, relevance, toxicity, and correctness. Integrated five LLM providers (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral) behind a unified REST API with WebSocket streaming for real-time benchmark telemetry and automated regression testing.",
+    metrics: [
+      { val: "99.4%", label: "Scoring Accuracy", subText: "Across 4 evaluation dimensions", badge: "ACCURACY" },
+      { val: "5 LLMs", label: "Orchestrated Providers", subText: "GPT-4, Claude, Gemini, Llama, Mistral", badge: "INTEGRATION" },
+      { val: "< 45ms", label: "WebSocket Telemetry", subText: "Real-time benchmark streaming", badge: "LATENCY" },
+      { val: "100%", label: "Toxicity Audit Rate", subText: "Automated regression testing", badge: "GUARDRAIL" },
+    ],
+    challenges: [
+      "High latency and API rate-limiting when scoring high-throughput LLM responses concurrently across 5 external providers.",
+      "Managing non-deterministic scoring outputs across heterogeneous model architectures.",
+    ],
+    solutions: [
+      "Constructed an asynchronous worker queue in FastAPI with WebSocket streaming (<45ms telemetry latency) for real-time scoring telemetry.",
+      "Implemented circuit breakers and exponential backoff retry handlers for external provider APIs.",
+    ],
+    interviewDeepDive: [
+      "Architecting asynchronous worker queues for multi-provider LLM benchmarking.",
+      "Real-time evaluation streaming using WebSockets for live regression dashboards.",
+    ],
+    highlights: [
+      "Unified REST API orchestrating 5 leading LLM providers (99.4% scoring accuracy)",
+      "WebSocket streaming with real-time multi-metric evaluation (<45ms latency)",
+      "Automated regression auditing and toxicity mitigation guardrails",
+    ],
+    tags: ["Python", "FastAPI", "React.js", "MongoDB", "LLMs", "WebSockets"],
+    githubUrl: "https://github.com/kartik-012/ragaai-catalyst",
+    demoUrl: "https://github.com/kartik-012/ragaai-catalyst",
+  },
+  {
+    n: "09",
     badge: "Deep Learning Internals",
     title: "NumPyGPT From Scratch",
     tagline: "Zero-Framework GPT Transformer Built from Mathematical First Principles",
@@ -293,6 +362,39 @@ const PROJECTS: ProjectItem[] = [
     githubUrl: "https://github.com/kartikraikar2005/numpygpt",
     demoUrl: "https://github.com/kartikraikar2005/numpygpt",
   },
+  {
+    n: "10",
+    badge: "Frontend Engineering",
+    title: "Calculator",
+    tagline: "Modern Interactive Calculator with Clean UI & Keyboard Support",
+    body: "A beautifully designed, fully functional calculator application built with modern web technologies. Features clean UI design, keyboard shortcut support, calculation history, and responsive layout optimized for all devices.",
+    metrics: [
+      { val: "100%", label: "Keyboard Support", subText: "Full numpad & operators", badge: "ACCESSIBILITY" },
+      { val: "60 FPS", label: "UI Animations", subText: "Smooth button interactions", badge: "PERFORMANCE" },
+      { val: "0 Deps", label: "External Libraries", subText: "Pure vanilla implementation", badge: "LIGHTWEIGHT" },
+      { val: "Responsive", label: "Cross-Device", subText: "Mobile-first design", badge: "DESIGN" }
+    ],
+    challenges: [
+      "Handling edge cases in arithmetic operations including division by zero, floating point precision, and chained operations.",
+      "Building an intuitive, responsive UI that works seamlessly across desktop and mobile with keyboard and touch support."
+    ],
+    solutions: [
+      "Implemented robust arithmetic engine with proper operator precedence, floating point precision handling, and comprehensive error states.",
+      "Designed a responsive grid layout with CSS Grid and smooth micro-interactions for an app-like experience."
+    ],
+    interviewDeepDive: [
+      "Handling floating point precision issues in JavaScript arithmetic operations.",
+      "Building accessible calculator interfaces with full keyboard navigation support."
+    ],
+    highlights: [
+      "Complete keyboard shortcut support for rapid calculations",
+      "Clean, modern glassmorphic UI with smooth micro-interactions",
+      "Calculation history with recall functionality"
+    ],
+    tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    githubUrl: "https://github.com/kartik-012/calculator",
+    demoUrl: "https://github.com/kartik-012/calculator"
+  }
 ];
 
 export function Projects() {
@@ -305,6 +407,9 @@ export function Projects() {
       "05": "highlights",
       "06": "highlights",
       "07": "highlights",
+      "08": "highlights",
+      "09": "highlights",
+      "10": "highlights",
     }
   );
 
@@ -319,7 +424,7 @@ export function Projects() {
           className="reveal inline-block rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground"
           data-reveal
         >
-          Featured AI Systems (7 Quantitative Benchmarks)
+          Featured AI Systems (10 Quantitative Benchmarks)
         </span>
 
         <h2
@@ -339,7 +444,7 @@ export function Projects() {
           data-reveal
           style={{ ["--reveal-delay" as string]: "150ms" }}
         >
-          A selection of production-grade AI systems, LLM evaluation pipelines, RAG benchmarking harnesses,
+          A selection of 10 production-grade AI systems, LLM evaluation pipelines, RAG benchmarking harnesses,
           MCP servers, and zero-framework transformers architected by Kartik Raikar. Click tabs on any project to explore metrics, challenges, solutions, and interview deep dives.
         </p>
 
@@ -364,7 +469,7 @@ export function Projects() {
                       {p.badge}
                     </p>
                     <span className="font-mono text-xs font-bold text-muted-foreground/60">
-                      // SYSTEM #{p.n} OF 07
+                      // SYSTEM #{p.n} OF 10
                     </span>
                   </div>
 
@@ -566,5 +671,3 @@ export function Projects() {
     </section>
   );
 }
-
-
