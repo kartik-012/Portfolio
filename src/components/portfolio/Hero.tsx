@@ -145,7 +145,7 @@ export function Hero({ onOpenResume }: HeroProps = {}) {
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
                 </svg>
-                <span>Interactive Resume</span>
+                <span>View Resume</span>
               </button>
 
               <a
