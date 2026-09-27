@@ -78,9 +78,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Portfolio of Kartik Raikar, AI Engineer specializing in Full-Stack AI Systems, Evaluation Pipelines, and Transformers.",
+          "Portfolio of Kartik Raikar, AI Engineer specializing in Autonomous AIOps incident engines, version-partitioned RAG architectures, MCP servers, and zero-framework transformers.",
       },
       { name: "author", content: "Kartik Raikar" },
+      { name: "theme-color", content: "#0b090a" },
+      { property: "og:site_name", content: "Kartik Raikar Portfolio" },
+      { property: "og:type", content: "website" },
+      { property: "og:title", content: "Kartik Raikar — AI Systems & LLM Engineer" },
+      {
+        property: "og:description",
+        content:
+          "Autonomous AIOps incident engines, version-partitioned RAG, MCP protocol servers, and zero-framework transformers. 10 quantitative engineering benchmarks.",
+      },
+      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:alt", content: "Kartik Raikar — AI Systems & LLM Engineer Portfolio" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Kartik Raikar — AI Systems & LLM Engineer" },
+      {
+        name: "twitter:description",
+        content:
+          "Autonomous AIOps incident engines, version-partitioned RAG, MCP protocol servers, and zero-framework transformers. 10 quantitative engineering benchmarks.",
+      },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

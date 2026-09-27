@@ -23,16 +23,67 @@ export const Route = createFileRoute("/")({
         content:
           "AI Engineer building production AIOps incident engines, version-partitioned RAG architectures, MCP servers, and transformers from scratch. View 10 quantitative benchmarks.",
       },
+      { property: "og:site_name", content: "Kartik Raikar Portfolio" },
+      { property: "og:type", content: "website" },
       { property: "og:title", content: "Kartik Raikar — AI Systems & LLM Engineer" },
       {
         property: "og:description",
         content:
-          "AI Engineer crafting scalable machine learning pipelines, RAG auditing tools, and full-stack web applications with Python and React.",
+          "Autonomous AIOps incident engines, version-partitioned RAG architectures, MCP servers, and transformers from scratch. 10 quantitative engineering benchmarks.",
       },
-      { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:alt", content: "Kartik Raikar — AI Systems & LLM Engineer Portfolio" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Kartik Raikar — AI Systems & LLM Engineer" },
+      {
+        name: "twitter:description",
+        content:
+          "Autonomous AIOps incident engines, version-partitioned RAG architectures, MCP servers, and transformers from scratch. 10 quantitative benchmarks.",
+      },
+      { name: "twitter:image", content: "/og-image.png" },
     ],
     links: [{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Kartik Raikar",
+          jobTitle: "AI Engineer & LLM Systems Architect",
+          email: "kartikraikar2005@gmail.com",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Belagavi",
+            addressRegion: "Karnataka",
+            addressCountry: "IN",
+          },
+          alumniOf: {
+            "@type": "CollegeOrUniversity",
+            name: "Jain College of Engineering, Belagavi (VTU)",
+          },
+          knowsAbout: [
+            "Generative AI",
+            "Large Language Models",
+            "Retrieval-Augmented Generation",
+            "Model Context Protocol",
+            "AIOps",
+            "Deep Learning",
+            "Transformers",
+            "FastAPI",
+            "React 19",
+            "Python",
+          ],
+          sameAs: [
+            "https://github.com/kartik-012",
+            "https://www.linkedin.com/in/kartik-raikar-kr",
+          ],
+        }),
+      },
+    ],
   }),
   component: Index,
 });
