@@ -394,7 +394,7 @@ export const CERTIFICATIONS: Certification[] = [
   // 20. Microsoft Azure Cloud Concepts
   {
     id: "azure-cloud-concepts",
-    title: "Introduction to Microsoft Azure: Describe Cloud Concepts",
+    title: "Microsoft Azure: Describe Cloud Computing",
     issuer: "Microsoft",
     issuerKey: "microsoft",
     date: "Aug 2025",
