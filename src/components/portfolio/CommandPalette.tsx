@@ -239,11 +239,11 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
       },
       {
         id: "nav-certifications",
-        title: "Verified Certifications",
-        subtitle: "Oracle AI Foundations, AWS ML, Tata GenAI",
+        title: "Verified Certifications (23 Technical Credentials)",
+        subtitle: "Oracle GenAI & Agentic AI, Apache Kafka, AWS ML, Cisco, SPARK IIT",
         category: "Navigation",
         icon: "📜",
-        keywords: ["certifications", "oracle", "aws", "tata", "credentials"],
+        keywords: ["certifications", "oracle", "kafka", "apache kafka", "aws", "tata", "credentials", "sparkiit", "cisco"],
         action: () => navigateTo("#certifications"),
       },
       {

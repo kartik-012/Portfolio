@@ -1,6 +1,7 @@
-import { useState, useMemo, MouseEvent } from "react";
+import { useState, useMemo, MouseEvent, useEffect } from "react";
+import { toast } from "sonner";
 
-type Certification = {
+export type Certification = {
   id: string;
   title: string;
   issuer: string;
@@ -18,25 +19,128 @@ type Certification = {
     | "skyscanner"
     | "walnut"
     | "ieee"
-    | "anthropic";
+    | "sparkiit"
+    | "cognifyz"
+    | "guvi"
+    | "linkedin";
   date: string;
   category: "ai" | "cloud" | "security" | "data" | "dev";
   credentialId?: string;
   certificateUrl?: string;
+  certificateImage?: string;
   skills: string[];
   description: string;
   brandColor: string;
   accentGlow: string;
 };
 
-const CERTIFICATIONS: Certification[] = [
-  // 1. Oracle AI Foundations
+export const CERTIFICATIONS: Certification[] = [
+  // 1. Apache Kafka Essential Training (User requested)
+  {
+    id: "linkedin-apache-kafka",
+    title: "Apache Kafka Essential Training: Building Scalable Applications",
+    issuer: "LinkedIn Learning",
+    issuerKey: "linkedin",
+    date: "Oct 2026",
+    credentialId: "9c67cf8f6f1e396dd87f34cf23b63f6a0b06c2258807ae55b7590c00e131718e",
+    certificateImage: "/certificates/linkedin-apache-kafka.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "dev",
+    skills: ["Apache Kafka", "Scalable Web Applications", "Event Streaming", "Distributed Systems"],
+    description:
+      "Mastery of Apache Kafka distributed architecture, high-throughput event streaming, message partitioning, consumer groups, and building fault-tolerant scalable backends.",
+    brandColor: "#0A66C2",
+    accentGlow: "rgba(10, 102, 194, 0.35)",
+  },
+
+  // 2. Oracle OCI AI Foundations (Jul 2026)
+  {
+    id: "oracle-ai-foundations-2026",
+    title: "Oracle Cloud Infrastructure Certified AI Foundations Associate",
+    issuer: "Oracle",
+    issuerKey: "oracle",
+    date: "Jul 2026",
+    credentialId: "102502437OCI26AICFA",
+    certificateImage: "/certificates/oracle-ai-foundations-2026.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["OCI", "Artificial Intelligence (AI)", "Machine Learning", "Generative AI", "LLMs"],
+    description:
+      "Demonstrates foundational knowledge of artificial intelligence, machine learning, Generative AI, Large Language Models (LLMs), and Oracle Cloud Infrastructure AI services.",
+    brandColor: "#C74634",
+    accentGlow: "rgba(199, 70, 52, 0.35)",
+  },
+
+  // 3. Oracle Agentic AI Certified Foundations Associate
+  {
+    id: "oracle-agentic-ai",
+    title: "Oracle Agentic AI Certified Foundations Associate",
+    issuer: "Oracle",
+    issuerKey: "oracle",
+    date: "Jul 2026",
+    credentialId: "102502437AAI26OFA",
+    certificateImage: "/certificates/oracle-agentic-ai.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["Agentic AI Development", "AI Orchestration", "Autonomous Agents", "Tool Calling", "Reasoning"],
+    description:
+      "Demonstrates foundational knowledge of Agentic AI, including autonomous AI agents, agent architectures, task execution pipelines, tool use, reasoning, and orchestration.",
+    brandColor: "#C74634",
+    accentGlow: "rgba(199, 70, 52, 0.35)",
+  },
+
+  // 4. Oracle AI Vector Search Certified Professional
+  {
+    id: "oracle-ai-vector-search",
+    title: "Oracle AI Vector Search Certified Professional",
+    issuer: "Oracle",
+    issuerKey: "oracle",
+    date: "Oct 2025",
+    credentialId: "102502437DB23AIOCP",
+    certificateImage: "/certificates/oracle-ai-vector-search.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["Vector Search Fundamentals", "Vector Databases", "Embeddings", "Similarity Search", "RAG"],
+    description:
+      "Demonstrates professional-level knowledge of AI Vector Search, vector indexes, similarity distance metrics, semantic search, and enterprise RAG architecture.",
+    brandColor: "#C74634",
+    accentGlow: "rgba(199, 70, 52, 0.35)",
+  },
+
+  // 5. Oracle GenAI Certified Professional (Sep 2025)
+  {
+    id: "oracle-genai-professional-2025",
+    title: "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
+    issuer: "Oracle",
+    issuerKey: "oracle",
+    date: "Sep 2025",
+    credentialId: "102502437OCI25GAIOCP",
+    certificateImage: "/certificates/oracle-genai-professional.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["Generative AI", "Large Language Models (LLM)", "Fine-Tuning", "RAG Pipelines", "OCI GenAI"],
+    description:
+      "Demonstrates professional-level knowledge of Generative AI concepts, LLM fine-tuning, retrieval architectures, and deploying production model pipelines on OCI.",
+    brandColor: "#C74634",
+    accentGlow: "rgba(199, 70, 52, 0.35)",
+  },
+
+  // 6. Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate (Sep 2025)
   {
     id: "oracle-ai-foundations-2025",
     title: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate",
     issuer: "Oracle",
     issuerKey: "oracle",
     date: "Sep 2025",
+    credentialId: "102502437OCI25AICFA",
+    certificateImage: "/certificates/oracle-ai-foundations-2025.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
     category: "ai",
     skills: ["Generative AI", "Machine Learning", "OCI AI Services", "LLMs"],
     description:
@@ -44,78 +148,82 @@ const CERTIFICATIONS: Certification[] = [
     brandColor: "#C74634",
     accentGlow: "rgba(199, 70, 52, 0.35)",
   },
-  // 2. Oracle GenAI Professional
+
+  // 7. SPARK IIT: AI Active Member & Participant
   {
-    id: "oracle-genai-professional-2025",
-    title: "Oracle Cloud Infrastructure 2025 Generative AI Certified Professional",
-    issuer: "Oracle",
-    issuerKey: "oracle",
-    date: "Sep 2025",
+    id: "sparkiit-ai-member",
+    title: "Artificial Intelligence — Active Member & Participant",
+    issuer: "SPARK IIT",
+    issuerKey: "sparkiit",
+    date: "Sep 2026",
+    certificateImage: "/certificates/sparkiit-member.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
     category: "ai",
-    skills: ["Fine-Tuning", "RAG Pipelines", "Vector Databases", "OCI GenAI Service"],
+    skills: ["Artificial Intelligence (AI)", "Machine Learning", "Applied Research", "Collaboration"],
     description:
-      "Advanced professional certification in architecting, fine-tuning, and deploying enterprise Large Language Models and Retrieval-Augmented Generation systems on OCI.",
-    brandColor: "#C74634",
-    accentGlow: "rgba(199, 70, 52, 0.35)",
+      "Certificate recognizing active membership and contributions in Artificial Intelligence initiatives, workshops, and project collaborations at SPARK IIT during 2026.",
+    brandColor: "#38BDF8",
+    accentGlow: "rgba(56, 189, 248, 0.35)",
   },
-  // 3. Oracle Cloud Foundations
+
+  // 8. SPARK IIT: AI Training (90 Days)
   {
-    id: "oracle-cloud-foundations-2025",
-    title: "Oracle Cloud Infrastructure 2025 Certified Foundations Associate",
-    issuer: "Oracle",
-    issuerKey: "oracle",
-    date: "Sep 2025",
-    category: "cloud",
-    skills: ["Cloud Architecture", "OCI Compute", "Virtual Cloud Networks", "Identity & Access"],
-    description:
-      "Core cloud computing certification validating deep understanding of enterprise OCI architecture, high availability, security, and cloud scalability.",
-    brandColor: "#C74634",
-    accentGlow: "rgba(199, 70, 52, 0.35)",
-  },
-  // 4. AWS Machine Learning & AI
-  {
-    id: "aws-ml-ai-fundamentals",
-    title: "AWS Training & Certification – Fundamentals of Machine Learning & AI",
-    issuer: "Amazon Web Services (AWS)",
-    issuerKey: "aws",
-    date: "Jun 2026",
+    id: "sparkiit-ai-training",
+    title: "Artificial Intelligence Training (90-Day Intensive)",
+    issuer: "SPARK IIT",
+    issuerKey: "sparkiit",
+    date: "Sep 2026",
+    certificateImage: "/certificates/sparkiit-training.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
     category: "ai",
-    skills: ["Machine Learning", "Amazon SageMaker", "Bedrock", "Computer Vision", "NLP"],
+    skills: ["Artificial Intelligence (AI)", "Machine Learning", "Deep Learning", "Model Training"],
     description:
-      "Completed AWS Skill Builder specialized curriculum on core AI algorithms, neural network design, model training, and generative AI deployments on AWS.",
-    brandColor: "#FF9900",
-    accentGlow: "rgba(255, 153, 0, 0.35)",
+      "Certificate documenting successful completion of a rigorous 90-day Artificial Intelligence training program at SPARK IIT, completed from July to September 2026.",
+    brandColor: "#0284C7",
+    accentGlow: "rgba(2, 132, 199, 0.35)",
   },
-  // 5. Microsoft Azure Cloud
+
+  // 9. Cognifyz IT Solutions: Machine Learning Intern
   {
-    id: "azure-cloud-concepts",
-    title: "Introduction to Microsoft Azure: Describe Cloud Concepts",
-    issuer: "Microsoft",
-    issuerKey: "microsoft",
-    date: "Aug 2025",
-    category: "cloud",
-    skills: ["Azure Architecture", "Serverless", "Cloud Security", "Hybrid Cloud"],
+    id: "cognifyz-ml-intern",
+    title: "Machine Learning Internship Completion Certificate",
+    issuer: "Cognifyz IT Solutions",
+    issuerKey: "cognifyz",
+    date: "Sep 2026",
+    credentialId: "CTI/A1/C405549",
+    certificateImage: "/certificates/cognifyz-ml-intern.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["Machine Learning", "Machine Learning Algorithms", "Data Science", "Python"],
     description:
-      "Microsoft verified credential for cloud computing fundamentals, compute virtualization, storage topologies, and Azure governance frameworks.",
-    brandColor: "#0078D4",
-    accentGlow: "rgba(0, 120, 212, 0.35)",
+      "Internship Completion Certificate for successfully completing a Machine Learning Internship at Cognifyz IT Solutions Pvt. Ltd., developing and validating production ML algorithms.",
+    brandColor: "#0284C7",
+    accentGlow: "rgba(2, 132, 199, 0.35)",
   },
-  // 6. Tata GenAI Data Analytics
+
+  // 10. HCL GUVI: Claude AI in 90 Minutes
   {
-    id: "tata-genai-analytics",
-    title: "Tata - GenAI Powered Data Analytics Job Simulation",
-    issuer: "Forage (Tata)",
-    issuerKey: "tata",
-    date: "Jun 2026",
-    credentialId: "F75ka7LhKE2sJGxyF",
-    category: "data",
-    skills: ["Generative AI", "Data Analytics", "Prompt Engineering", "Data Modeling"],
+    id: "hcl-guvi-claude-ai",
+    title: "Claude AI in 90 Minutes: Build Your AI Work Assistant",
+    issuer: "HCL GUVI",
+    issuerKey: "guvi",
+    date: "Aug 2026",
+    credentialId: "9Qr27j357Ph81o7Yt6",
+    certificateImage: "/certificates/claude-ai-guvi.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["Generative AI", "Artificial Intelligence (AI)", "Anthropic Claude", "AI Work Assistants"],
     description:
-      "Hands-on job simulation leveraging cutting-edge Generative AI to automate exploratory data analysis, generate executive insights, and structure analytics workflows.",
-    brandColor: "#005691",
-    accentGlow: "rgba(0, 86, 145, 0.35)",
+      "Certificate of Completion awarded by GUVI for successfully completing the Claude AI in 90 Minutes course, demonstrating practical prompt architecture and workflow automation.",
+    brandColor: "#00A86B",
+    accentGlow: "rgba(0, 168, 107, 0.35)",
   },
-  // 7. Deloitte Data Analytics
+
+  // 11. Deloitte Data Analytics
   {
     id: "deloitte-analytics",
     title: "Deloitte Data Analytics Job Simulation",
@@ -123,81 +231,17 @@ const CERTIFICATIONS: Certification[] = [
     issuerKey: "deloitte",
     date: "Jul 2026",
     credentialId: "68dcdda956c19017e850b83f",
+    certificateImage: "/certificates/deloitte-analytics.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
     category: "data",
     skills: ["Data Analytics", "Forensic Technology", "Advanced Excel", "Data Cleaning"],
     description:
-      "Completed practical forensic data analysis simulation with Deloitte, conducting end-to-end data pipeline cleaning, statistical modeling, and insight dashboards.",
+      "Successfully completed Deloitte's Data Analytics Job Simulation on Forage, gaining hands-on experience in data analysis, forensic technology, and executive insight reporting.",
     brandColor: "#86BC25",
     accentGlow: "rgba(134, 188, 37, 0.35)",
   },
-  // 8. Tata Data Visualization
-  {
-    id: "tata-data-visualisation",
-    title: "Tata - Data Visualisation: Empowering Business with Effective Insights",
-    issuer: "Forage (Tata)",
-    issuerKey: "tata",
-    date: "Jun 2026",
-    credentialId: "fRnWE6dTKBsSJyrg5",
-    category: "data",
-    skills: [
-      "Data Visualization",
-      "Executive Dashboards",
-      "Data Cleaning",
-      "Business Intelligence",
-    ],
-    description:
-      "Executed practical enterprise data simulation building responsive C-suite visual dashboards, data validation pipelines, and strategic decision metrics.",
-    brandColor: "#005691",
-    accentGlow: "rgba(0, 86, 145, 0.35)",
-  },
-  // 9. Cisco Cybersecurity
-  {
-    id: "cisco-cybersecurity",
-    title: "Introduction to Cybersecurity",
-    issuer: "Cisco Networking Academy",
-    issuerKey: "cisco",
-    date: "Jun 2026",
-    category: "security",
-    skills: ["Cybersecurity", "Information Security", "Network Defense", "Threat Intelligence"],
-    description:
-      "Foundational credential in enterprise security architectures, attack vectors, cryptographic protocols, defense-in-depth, and data privacy safeguards.",
-    brandColor: "#049FD9",
-    accentGlow: "rgba(4, 159, 217, 0.35)",
-  },
-  // 10. Tata Cybersecurity Analyst
-  {
-    id: "tata-cybersecurity",
-    title: "Tata - Cybersecurity Analyst Job Simulation",
-    issuer: "Forage (Tata)",
-    issuerKey: "tata",
-    date: "Jun 2026",
-    credentialId: "oL6ptn27GNbizp9Ch",
-    category: "security",
-    skills: ["IAM Assessments", "Cybersecurity Strategy", "Solution Design", "Access Control"],
-    description:
-      "Simulated enterprise security operations focusing on Identity and Access Management (IAM), vulnerability assessments, and mitigation solution design.",
-    brandColor: "#005691",
-    accentGlow: "rgba(0, 86, 145, 0.35)",
-  },
-  // 11. IBM Process Mining
-  {
-    id: "ibm-process-mining",
-    title: "IBM Process Mining Project Journey",
-    issuer: "IBM Training",
-    issuerKey: "ibm",
-    date: "Sep 2025",
-    category: "data",
-    skills: [
-      "Process Mining",
-      "Workflow Optimization",
-      "Enterprise Automation",
-      "Process Discovery",
-    ],
-    description:
-      "Awarded by IBM Training for demonstrating hands-on proficiency in process mining, algorithmic bottleneck detection, and workflow transformation pipelines.",
-    brandColor: "#0530AD",
-    accentGlow: "rgba(5, 48, 173, 0.35)",
-  },
+
   // 12. TCS iON Career Edge
   {
     id: "tcs-career-edge",
@@ -206,21 +250,139 @@ const CERTIFICATIONS: Certification[] = [
     issuerKey: "tcs",
     date: "Jun 2026",
     credentialId: "240640-28976732-1016",
+    certificateImage: "/certificates/tcs-ion.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
     category: "dev",
-    skills: ["Business Communication", "Presentation", "IT Methodologies", "Leadership"],
+    skills: ["Communication", "Presentation Skills", "Agile Methodologies", "Leadership"],
     description:
-      "Comprehensive professional capability program covering industry-standard Agile workflows, corporate communications, and collaborative development frameworks.",
+      "Comprehensive certification covering business communication, presentation, IT methodologies, collaborative workflows, and corporate development frameworks.",
     brandColor: "#E20074",
     accentGlow: "rgba(226, 0, 116, 0.35)",
   },
-  // 13. GreatStack Full Stack
+
+  // 13. AWS Machine Learning & AI Fundamentals
+  {
+    id: "aws-ml-ai-fundamentals",
+    title: "AWS Training & Certification – Fundamentals of Machine Learning & AI",
+    issuer: "Amazon Web Services (AWS)",
+    issuerKey: "aws",
+    date: "Jun 2026",
+    certificateImage: "/certificates/aws-ml-ai.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["Machine Learning", "Artificial Intelligence (AI)", "Amazon Bedrock", "SageMaker"],
+    description:
+      "Completed AWS Skill Builder specialized curriculum on core AI algorithms, neural network design, model training, and generative AI deployments on AWS.",
+    brandColor: "#FF9900",
+    accentGlow: "rgba(255, 153, 0, 0.35)",
+  },
+
+  // 14. Cisco Cybersecurity
+  {
+    id: "cisco-cybersecurity",
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco Networking Academy",
+    issuerKey: "cisco",
+    date: "Jun 2026",
+    certificateImage: "/certificates/cisco-cybersecurity.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "security",
+    skills: ["Cybersecurity", "Information Security", "Network Defense", "Threat Intelligence"],
+    description:
+      "Gained foundational knowledge of cybersecurity, online threats, digital security, network defense, cryptographic safeguards, and information protection through Cisco.",
+    brandColor: "#049FD9",
+    accentGlow: "rgba(4, 159, 217, 0.35)",
+  },
+
+  // 15. Tata Data Visualisation
+  {
+    id: "tata-data-visualisation",
+    title: "Tata - Data Visualisation: Empowering Business with Effective Insights",
+    issuer: "Forage (Tata)",
+    issuerKey: "tata",
+    date: "Jun 2026",
+    credentialId: "fRnWE6dTKBsSJyrg5",
+    certificateImage: "/certificates/tata-data-visualisation.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "data",
+    skills: ["Data Analytics", "Data Visualization", "Executive Dashboards", "Data Cleaning"],
+    description:
+      "Completed a practical data analytics simulation focused on data cleaning, dashboard development, data visualization, business insights generation, and executive metrics.",
+    brandColor: "#005691",
+    accentGlow: "rgba(0, 86, 145, 0.35)",
+  },
+
+  // 16. Tata Cybersecurity Analyst
+  {
+    id: "tata-cybersecurity",
+    title: "Tata - Cybersecurity Analyst Job Simulation",
+    issuer: "Forage (Tata)",
+    issuerKey: "tata",
+    date: "Jun 2026",
+    credentialId: "oL6ptn27GNbizp9Ch",
+    certificateImage: "/certificates/tata-cybersecurity.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "security",
+    skills: ["Identity and Access Management (IAM)", "Cybersecurity", "IAM Assessments", "Solution Design"],
+    description:
+      "Completed a cybersecurity simulation focused on Identity and Access Management (IAM), cybersecurity best practices, IAM assessments, and security solution design.",
+    brandColor: "#005691",
+    accentGlow: "rgba(0, 86, 145, 0.35)",
+  },
+
+  // 17. Tata GenAI Powered Data Analytics
+  {
+    id: "tata-genai-analytics",
+    title: "Tata - GenAI Powered Data Analytics Job Simulation",
+    issuer: "Forage (Tata)",
+    issuerKey: "tata",
+    date: "Jun 2026",
+    credentialId: "F75ka7LhKE2sJGxyF",
+    certificateImage: "/certificates/tata-genai-analytics.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "data",
+    skills: ["Artificial Intelligence (AI)", "Data Visualization", "Generative AI", "Prompt Engineering"],
+    description:
+      "Completed Tata's GenAI Powered Data Analytics Job Simulation on Forage, developing hands-on experience in leveraging Generative AI for exploratory data analytics.",
+    brandColor: "#005691",
+    accentGlow: "rgba(0, 86, 145, 0.35)",
+  },
+
+  // 18. IBM Process Mining
+  {
+    id: "ibm-process-mining",
+    title: "IBM Process Mining Project Journey",
+    issuer: "IBM Training",
+    issuerKey: "ibm",
+    date: "Sep 2025",
+    certificateImage: "/certificates/ibm-process-mining.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "data",
+    skills: ["Process Mining", "Workflow Optimization", "Enterprise Automation", "Process Discovery"],
+    description:
+      "Certificate of Completion awarded by IBM Training on September 1, 2025, for hands-on proficiency in process mining, algorithmic bottleneck detection, and workflow transformation.",
+    brandColor: "#0530AD",
+    accentGlow: "rgba(5, 48, 173, 0.35)",
+  },
+
+  // 19. GreatStack Full Stack Food Delivery
   {
     id: "greatstack-fullstack",
     title: "Full Stack Food Delivery Project & Architecture",
     issuer: "GreatStack",
     issuerKey: "greatstack",
     date: "Aug 2025",
-    credentialId: "fdeleWZYPOIdyzddhImJG0huQBb7yj22",
+    credentialId: "fdeleWZyPOIDyzddhlmJG0huQbB7yj22",
+    certificateImage: "/certificates/greatstack-fullstack.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
     category: "dev",
     skills: ["React", "Node.js", "MongoDB", "Express", "Stripe API", "JWT"],
     description:
@@ -228,7 +390,26 @@ const CERTIFICATIONS: Certification[] = [
     brandColor: "#6366F1",
     accentGlow: "rgba(99, 102, 241, 0.35)",
   },
-  // 14. Skyscanner Front-End Software Engineering
+
+  // 20. Microsoft Azure Cloud Concepts
+  {
+    id: "azure-cloud-concepts",
+    title: "Introduction to Microsoft Azure: Describe Cloud Concepts",
+    issuer: "Microsoft",
+    issuerKey: "microsoft",
+    date: "Aug 2025",
+    certificateImage: "/certificates/azure-cloud-concepts.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "cloud",
+    skills: ["Azure Architecture", "Serverless", "Cloud Security", "Hybrid Cloud"],
+    description:
+      "Microsoft verified credential for cloud computing fundamentals, compute virtualization, storage topologies, and Azure governance frameworks.",
+    brandColor: "#0078D4",
+    accentGlow: "rgba(0, 120, 212, 0.35)",
+  },
+
+  // 21. Skyscanner Front-End Engineering
   {
     id: "forage-skyscanner-frontend",
     title: "Skyscanner – Front-End Software Engineering Job Simulation",
@@ -236,6 +417,7 @@ const CERTIFICATIONS: Certification[] = [
     issuerKey: "skyscanner",
     date: "Aug 2026",
     certificateUrl: "/cert-skyscanner.pdf",
+    certificateImage: "/certificates/skyscanner-frontend.png",
     category: "dev",
     skills: ["React", "Front-End Development", "UI Components", "Agile", "Software Engineering"],
     description:
@@ -243,54 +425,25 @@ const CERTIFICATIONS: Certification[] = [
     brandColor: "#0770E3",
     accentGlow: "rgba(7, 112, 227, 0.35)",
   },
-  // 15. Forage Walnut Job Simulation
+
+  // 22. Walnut Sales Technology
   {
     id: "forage-walnut",
     title: "Walnut – Sales Technology Job Simulation",
     issuer: "Forage (Walnut)",
     issuerKey: "walnut",
-    date: "Aug 2026",
+    date: "Jul 2026",
     certificateUrl: "/cert-forage-walnut.pdf",
+    certificateImage: "/certificates/walnut-sales-tech.png",
     category: "dev",
-    skills: ["Sales Technology", "Product Demos", "SaaS", "CRM", "Technical Sales"],
+    skills: ["Sales Technology", "SaaS Architecture", "Product Demo Workflows"],
     description:
-      "Completed Walnut's official job simulation on Forage, gaining hands-on experience in building interactive product demos and mastering modern B2B sales technology workflows.",
+      "Completed Walnut's sales technology job simulation on Forage, optimizing interactive SaaS product tours, analytics conversion funnels, and enterprise workflows.",
     brandColor: "#7C3AED",
     accentGlow: "rgba(124, 58, 237, 0.35)",
   },
-  // 16. Anthropic AI Fluency (cusznb4p9eip)
-  {
-    id: "anthropic-ai-fluency",
-    title: "Anthropic – AI Fluency: Framework & Foundations",
-    issuer: "Anthropic",
-    issuerKey: "anthropic",
-    date: "Jun 2026",
-    credentialId: "cusznb4p9eip",
-    certificateUrl: "/cert-forage-1.pdf",
-    category: "ai",
-    skills: ["Anthropic", "Claude Models", "AI Frameworks", "Prompt Engineering", "LLMs"],
-    description:
-      "Certificate of Completion awarded by Anthropic for mastering AI Fluency: Framework & Foundations, covering Large Language Model architectures, enterprise AI deployment, and foundational AI principles.",
-    brandColor: "#D97706",
-    accentGlow: "rgba(217, 119, 6, 0.35)",
-  },
-  // 17. Anthropic Claude 101 (kq5p62yovk34)
-  {
-    id: "anthropic-claude-101",
-    title: "Anthropic – Claude 101 Certificate of Completion",
-    issuer: "Anthropic",
-    issuerKey: "anthropic",
-    date: "Jun 2026",
-    credentialId: "kq5p62yovk34",
-    certificateUrl: "/cert-forage-2.pdf",
-    category: "ai",
-    skills: ["Anthropic Claude", "Generative AI", "LLM Orchestration", "AI Integration"],
-    description:
-      "Certificate of Completion awarded by Anthropic for completing Claude 101, demonstrating mastery in Claude API integration, prompt design, and AI application development.",
-    brandColor: "#CC785C",
-    accentGlow: "rgba(204, 120, 92, 0.35)",
-  },
-  // 19. IEEE Introduction to IoT
+
+  // 23. IEEE Introduction to IoT
   {
     id: "ieee-introduction-to-iot",
     title: "Introduction to IoT – IEEE Blended Learning Program",
@@ -299,6 +452,7 @@ const CERTIFICATIONS: Certification[] = [
     date: "Aug 2026",
     credentialId: "411409732KK",
     certificateUrl: "/cert-ieee-iot.pdf",
+    certificateImage: "/certificates/ieee-iot-certificate.png",
     category: "cloud",
     skills: ["Internet of Things (IoT)", "Embedded Systems", "Sensor Networks", "Smart Devices", "IEEE Certified"],
     description:
@@ -321,10 +475,31 @@ export function Certifications() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedCert(null);
+    };
+    if (selectedCert) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedCert]);
 
   const copyCredential = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
+    toast.success("Credential ID copied!", {
+      description: text,
+      duration: 3000,
+    });
     setTimeout(() => setCopiedId(null), 2500);
   };
 
@@ -369,12 +544,12 @@ export function Certifications() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary">
-              Verified Industry Qualifications
+              Verified Technical Credentials ({CERTIFICATIONS.length})
             </span>
           </div>
 
           <h2
-            className="reveal mt-6 font-display text-4xl font-extrabold tracking-tight sm:text-6xl text-foreground"
+            className="reveal mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground"
             data-reveal
             style={{ ["--reveal-delay" as string]: "80ms" }}
           >
@@ -389,8 +564,7 @@ export function Certifications() {
             data-reveal
             style={{ ["--reveal-delay" as string]: "140ms" }}
           >
-            A verified record of specialized mastery spanning Oracle Generative AI, AWS Machine
-            Learning, Azure Cloud architecture, and enterprise data analytics simulations.
+            A verified record of {CERTIFICATIONS.length} specialized certifications spanning Oracle Generative AI &amp; Agentic AI, Apache Kafka, AWS Machine Learning, Cisco Cybersecurity, and enterprise data analytics simulations.
           </p>
         </div>
 
@@ -439,7 +613,7 @@ export function Certifications() {
 
         {/* Certificate Cards Grid */}
         <div
-          className="reveal mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"
+          className="reveal mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           data-reveal
           style={{ ["--reveal-delay" as string]: "220ms" }}
         >
@@ -478,6 +652,26 @@ export function Certifications() {
                     <span>✓</span> Verified
                   </span>
                 </div>
+
+                {/* Certificate Document Thumbnail Preview */}
+                {cert.certificateImage && (
+                  <div
+                    onClick={() => setSelectedCert(cert)}
+                    className="relative mt-2 h-40 w-full cursor-pointer overflow-hidden rounded-2xl border border-border/50 bg-black/40 group/img transition-all hover:border-primary/60"
+                  >
+                    <img
+                      src={cert.certificateImage}
+                      alt={cert.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover/img:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 backdrop-blur-xs transition-opacity duration-300 group-hover/img:opacity-100">
+                      <span className="flex items-center gap-1.5 rounded-full bg-primary/95 px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg glow-red">
+                        <span>🔍</span> View Certificate
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Title */}
                 <div>
@@ -523,29 +717,32 @@ export function Certifications() {
                   ) : (
                     <>
                       <span className="text-[10px] font-semibold text-muted-foreground">
-                        Official Training Credential
+                        Official Verified Credential
                       </span>
                       <span className="text-xs text-primary font-bold">● Active</span>
                     </>
                   )}
                 </div>
-                {cert.certificateUrl && (
+
+                {/* Actions: View Certificate & External Verification */}
+                <div className="grid grid-cols-2 gap-2 mt-1">
+                  <button
+                    onClick={() => setSelectedCert(cert)}
+                    className="inline-flex items-center justify-center gap-1 rounded-xl bg-primary/15 border border-primary/40 px-3 py-1.5 text-[11px] font-semibold text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                  >
+                    <span>🖼️</span> Preview
+                  </button>
+
                   <a
-                    href={cert.certificateUrl}
+                    href={cert.certificateUrl || "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 w-full rounded-lg border border-border/60 bg-background/60 px-3 py-1.5 text-[10px] font-semibold text-foreground transition-all duration-200 hover:bg-primary/10 hover:border-primary/60 hover:text-primary"
+                    className="inline-flex items-center justify-center gap-1 rounded-xl border border-border/70 bg-card/60 px-3 py-1.5 text-[11px] font-semibold text-foreground transition-all duration-200 hover:border-primary/60 hover:text-primary"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14 2 14 8 20 8"/>
-                      <line x1="16" y1="13" x2="8" y2="13"/>
-                      <line x1="16" y1="17" x2="8" y2="17"/>
-                      <polyline points="10 9 9 9 8 9"/>
-                    </svg>
-                    View Certificate
+                    <span>Verify</span>
+                    <span className="text-xs">↗</span>
                   </a>
-                )}
+                </div>
               </div>
             </div>
           ))}
@@ -569,6 +766,105 @@ export function Certifications() {
           </div>
         )}
       </div>
+
+      {/* Certificate Lightbox / Fullscreen Modal */}
+      {selectedCert && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-6"
+        >
+          {/* Backdrop */}
+          <div
+            onClick={() => setSelectedCert(null)}
+            className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
+          />
+
+          {/* Modal Container */}
+          <div className="relative z-10 flex max-h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-primary/30 bg-card shadow-[0_25px_90px_-20px_color-mix(in_oklab,var(--primary)_50%,transparent)] backdrop-blur-2xl animate-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 bg-secondary/60 px-6 py-4">
+              <div className="flex items-center gap-3">
+                <IssuerIcon issuerKey={selectedCert.issuerKey} />
+                <div>
+                  <h3 className="font-display text-sm sm:text-base font-bold text-foreground">
+                    {selectedCert.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    {selectedCert.issuer} • Issued {selectedCert.date}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {selectedCert.certificateUrl && (
+                  <a
+                    href={selectedCert.certificateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+                  >
+                    <span>Verify Credential</span>
+                    <span className="text-xs">↗</span>
+                  </a>
+                )}
+
+                <button
+                  onClick={() => setSelectedCert(null)}
+                  aria-label="Close certificate modal"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border/80 bg-card text-muted-foreground transition-colors hover:border-destructive hover:bg-destructive hover:text-destructive-foreground"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Certificate Image Frame */}
+            <div className="flex flex-1 items-center justify-center overflow-y-auto bg-black/60 p-4 sm:p-8">
+              <div className="relative max-h-[60vh] max-w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                <img
+                  src={selectedCert.certificateImage}
+                  alt={selectedCert.title}
+                  className="h-auto max-h-[60vh] w-auto max-w-full object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Footer with details and Copy ID */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 bg-secondary/50 px-6 py-3.5 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                {selectedCert.credentialId && (
+                  <span className="font-mono text-muted-foreground">
+                    Credential ID:{" "}
+                    <strong className="text-foreground">{selectedCert.credentialId}</strong>
+                  </span>
+                )}
+                {selectedCert.credentialId && (
+                  <button
+                    onClick={() => copyCredential(selectedCert.credentialId!, selectedCert.id)}
+                    className="rounded-lg border border-border/80 bg-card px-2.5 py-1 font-semibold text-foreground hover:bg-primary hover:text-primary-foreground"
+                  >
+                    {copiedId === selectedCert.id ? "✓ Copied" : "Copy ID 📋"}
+                  </button>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {selectedCert.certificateImage && (
+                  <a
+                    href={selectedCert.certificateImage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    Open Full Image ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -671,28 +967,34 @@ function IssuerIcon({ issuerKey }: { issuerKey: string }) {
           IEEE
         </div>
       );
-    case "anthropic":
+    case "sparkiit":
       return (
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#CC785C] text-white shadow-md font-extrabold text-[12px] tracking-tighter border border-white/20">
-          A\
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] text-[#38BDF8] shadow-md font-black text-[9px] tracking-tight border border-sky-500/30">
+          SPARK
         </div>
       );
-    case "iiitdharwad":
+    case "cognifyz":
       return (
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0284C7] text-white font-black text-[10px] tracking-tight shadow-md border border-white/20">
-          IIITD
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#0EA5E9] shadow-md font-bold text-[8px] border border-border">
+          Cognifyz
         </div>
       );
-    case "nitte":
+    case "guvi":
       return (
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D97706] text-white font-black text-[10px] tracking-tight shadow-md border border-white/20">
-          NITTE
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00A86B] text-white shadow-md font-black text-[10px] tracking-tight">
+          GUVI
         </div>
       );
-    case "jce":
+    case "linkedin":
       return (
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#8B5CF6] text-white font-black text-[10px] tracking-tight shadow-md border border-white/20">
-          VP
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0A66C2] text-white shadow-md font-black text-sm">
+          in
+        </div>
+      );
+    case "greatstack":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#111827] text-[#6366F1] shadow-md font-black text-xs border border-indigo-500/30">
+          GS
         </div>
       );
     default:
