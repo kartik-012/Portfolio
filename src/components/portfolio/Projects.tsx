@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 
 interface ProjectMetric {
   label: string;
@@ -417,18 +417,46 @@ export function Projects() {
     setExpandedTabs((prev) => ({ ...prev, [n]: tab }));
   };
 
+  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6; // 3D tilt X
+    const rotateY = ((x - centerX) / centerX) * 6;  // 3D tilt Y
+
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+    e.currentTarget.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+    e.currentTarget.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+  };
+
+  const handleMouseLeave = (e: MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.setProperty("--rotate-x", "0deg");
+    e.currentTarget.style.setProperty("--rotate-y", "0deg");
+  };
+
   return (
-    <section id="projects" className="relative bg-background py-24 md:py-32">
+    <section id="projects" className="relative bg-background py-24 md:py-32 border-t border-border/40">
+      {/* Background ambient lighting */}
+      <div className="pointer-events-none absolute top-10 left-1/3 -translate-x-1/2 h-[32rem] w-[50rem] rounded-full bg-primary/5 blur-[160px]" />
+      <div className="pointer-events-none absolute bottom-1/4 right-10 h-80 w-80 rounded-full bg-violet-600/5 blur-[150px]" />
+
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <span
-          className="reveal inline-block rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground"
+          className="reveal inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-primary backdrop-blur-md"
           data-reveal
         >
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+          </span>
           Featured AI Systems (10 Quantitative Benchmarks)
         </span>
 
         <h2
-          className="reveal mt-6 max-w-xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-6xl"
+          className="reveal mt-6 max-w-xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-6xl text-foreground"
           data-reveal
           style={{ ["--reveal-delay" as string]: "80ms" }}
         >
@@ -445,7 +473,7 @@ export function Projects() {
           style={{ ["--reveal-delay" as string]: "150ms" }}
         >
           A selection of 10 production-grade AI systems, LLM evaluation pipelines, RAG benchmarking harnesses,
-          MCP servers, and zero-framework transformers architected by Kartik Raikar. Click tabs on any project to explore metrics, challenges, solutions, and interview deep dives.
+          MCP servers, and zero-framework transformers architected by Kartik Raikar. Click tabs on any project to explore metrics, challenges, solutions, and senior interview deep dives.
         </p>
 
         <div className="mt-16 space-y-12">
@@ -455,28 +483,42 @@ export function Projects() {
             return (
               <article
                 key={p.n}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${(i % 2) * 80}ms` }}
-                className="reveal group relative overflow-hidden rounded-3xl border border-border bg-card p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/60 hover:shadow-[0_0_70px_-25px_color-mix(in_oklab,var(--primary)_75%,transparent)] md:p-10"
+                className="reveal card-3d group relative overflow-hidden rounded-3xl border border-border/80 bg-card/60 p-7 shadow-2xl backdrop-blur-xl md:p-10 hover:border-primary/60 hover:shadow-[0_25px_70px_-20px_color-mix(in_oklab,var(--primary)_50%,transparent)]"
               >
+                {/* Dynamic Cursor Spotlight Glow */}
+                <div
+                  className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(420px circle at var(--mouse-x, 200px) var(--mouse-y, 100px), color-mix(in oklab, var(--primary) 22%, transparent), transparent 75%)`,
+                  }}
+                />
+
+                {/* 3D Specular Sheen Glare */}
+                <div className="glare-sheen group-hover:opacity-100" />
+
+                {/* Cybernetic Accent Aura in Corner */}
                 <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/20 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
 
-                <div className="relative">
+                <div className="relative z-10 [transform-style:preserve-3d]">
                   {/* Top Header */}
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/50 pb-4">
                     <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                      <span className="animate-pulse-ring inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                      <span className="inline-block h-2 w-2 rounded-full bg-primary animate-pulse" />
                       {p.badge}
                     </p>
-                    <span className="font-mono text-xs font-bold text-muted-foreground/60">
+                    <span className="rounded-full border border-border/60 bg-secondary/50 px-3 py-1 font-mono text-xs font-bold text-muted-foreground/80">
                       // SYSTEM #{p.n} OF 10
                     </span>
                   </div>
 
                   {/* Title & Tagline */}
-                  <div className="mt-5 flex flex-col gap-1">
-                    <h3 className="flex items-baseline gap-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-                      <span className="text-muted-foreground/50">{p.n}</span>
+                  <div className="card-3d-child mt-5 flex flex-col gap-1">
+                    <h3 className="flex items-baseline gap-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">
+                      <span className="text-muted-foreground/40 font-mono">{p.n}</span>
                       <span className="transition-colors duration-300 group-hover:text-primary">
                         {p.title}
                       </span>
@@ -492,20 +534,20 @@ export function Projects() {
                   </p>
 
                   {/* Quantitative Benchmark Stats Grid */}
-                  <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  <div className="card-3d-child-lg mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {p.metrics.map((m) => (
                       <div
                         key={m.label}
-                        className="group/metric relative overflow-hidden rounded-2xl border border-primary/25 bg-secondary/30 p-3.5 backdrop-blur-sm transition-all duration-300 hover:border-primary/60 hover:bg-secondary/50"
+                        className="group/metric relative overflow-hidden rounded-2xl border border-primary/25 bg-secondary/35 p-3.5 backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-secondary/55 hover:scale-[1.02]"
                       >
                         <div className="flex items-center justify-between">
                           {m.badge && (
-                            <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[8px] font-bold uppercase text-primary">
+                            <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-primary">
                               {m.badge}
                             </span>
                           )}
                         </div>
-                        <p className="mt-1 font-display text-xl font-black text-foreground sm:text-2xl">
+                        <p className="mt-1.5 font-display text-xl font-black text-foreground sm:text-2xl tracking-tight">
                           {m.val}
                         </p>
                         <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
@@ -520,12 +562,12 @@ export function Projects() {
 
                   {/* Interactive Details Navigation Tabs */}
                   <div className="mt-7">
-                    <div className="flex flex-wrap gap-2 border-b border-border/40 pb-2">
+                    <div className="flex flex-wrap gap-2 border-b border-border/40 pb-2.5">
                       <button
                         onClick={() => setTab(p.n, "highlights")}
-                        className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                        className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all duration-200 cursor-pointer ${
                           activeTab === "highlights"
-                            ? "bg-primary text-primary-foreground shadow-sm"
+                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105"
                             : "bg-secondary/40 text-muted-foreground hover:bg-secondary hover:text-foreground"
                         }`}
                       >
@@ -533,9 +575,9 @@ export function Projects() {
                       </button>
                       <button
                         onClick={() => setTab(p.n, "challenges")}
-                        className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                        className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all duration-200 cursor-pointer ${
                           activeTab === "challenges"
-                            ? "bg-amber-500 text-black shadow-sm"
+                            ? "bg-amber-500 text-black shadow-lg shadow-amber-500/30 scale-105"
                             : "bg-secondary/40 text-muted-foreground hover:bg-secondary hover:text-foreground"
                         }`}
                       >
@@ -543,9 +585,9 @@ export function Projects() {
                       </button>
                       <button
                         onClick={() => setTab(p.n, "solutions")}
-                        className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                        className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all duration-200 cursor-pointer ${
                           activeTab === "solutions"
-                            ? "bg-emerald-600 text-white shadow-sm"
+                            ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 scale-105"
                             : "bg-secondary/40 text-muted-foreground hover:bg-secondary hover:text-foreground"
                         }`}
                       >
@@ -553,9 +595,9 @@ export function Projects() {
                       </button>
                       <button
                         onClick={() => setTab(p.n, "interview")}
-                        className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                        className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all duration-200 cursor-pointer ${
                           activeTab === "interview"
-                            ? "bg-violet-600 text-white shadow-sm"
+                            ? "bg-violet-600 text-white shadow-lg shadow-violet-600/30 scale-105"
                             : "bg-secondary/40 text-muted-foreground hover:bg-secondary hover:text-foreground"
                         }`}
                       >
@@ -564,17 +606,17 @@ export function Projects() {
                     </div>
 
                     {/* Tab Content Box */}
-                    <div className="mt-3 min-h-[120px] rounded-2xl border border-border/40 bg-secondary/30 p-4.5 transition-all duration-300">
+                    <div className="mt-3 min-h-[120px] rounded-2xl border border-border/50 bg-secondary/35 p-5 backdrop-blur-md transition-all duration-300">
                       {activeTab === "highlights" && (
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-foreground/75">
-                            Key Quantitative Highlights:
+                        <div className="space-y-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-foreground/80 flex items-center gap-1.5">
+                            <span className="text-primary font-black">✦</span> Key Quantitative Highlights:
                           </p>
                           <ul className="grid gap-2 sm:grid-cols-2 text-xs text-muted-foreground">
                             {p.highlights.map((h) => (
                               <li key={h} className="flex items-start gap-2">
-                                <span className="text-primary font-bold">✦</span>
-                                <span>{h}</span>
+                                <span className="text-primary font-bold shrink-0">✦</span>
+                                <span className="leading-relaxed">{h}</span>
                               </li>
                             ))}
                           </ul>
@@ -582,9 +624,9 @@ export function Projects() {
                       )}
 
                       {activeTab === "challenges" && (
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
-                            Engineering Bottlenecks &amp; Baseline Metrics:
+                        <div className="space-y-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                            <span>⚠️</span> Engineering Bottlenecks &amp; Baseline Metrics:
                           </p>
                           <ul className="space-y-2.5 text-xs text-muted-foreground">
                             {p.challenges.map((c, idx) => (
@@ -598,9 +640,9 @@ export function Projects() {
                       )}
 
                       {activeTab === "solutions" && (
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                            Quantified Engineering Solutions &amp; Measured Impact:
+                        <div className="space-y-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                            <span>✓</span> Quantified Engineering Solutions &amp; Measured Impact:
                           </p>
                           <ul className="space-y-2.5 text-xs text-muted-foreground">
                             {p.solutions.map((s, idx) => (
@@ -614,9 +656,9 @@ export function Projects() {
                       )}
 
                       {activeTab === "interview" && (
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-violet-400">
-                            Senior Staff Architect Interview Talking Cards:
+                        <div className="space-y-2.5">
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-violet-400 flex items-center gap-1.5">
+                            <span>🎴</span> Senior Staff Architect Interview Talking Cards:
                           </p>
                           <ul className="space-y-2.5 text-xs text-muted-foreground">
                             {p.interviewDeepDive.map((item, idx) => (
@@ -636,7 +678,7 @@ export function Projects() {
                     {p.tags.map((t) => (
                       <li
                         key={t}
-                        className="rounded-full border border-border bg-secondary/50 px-3 py-1 text-[11px] font-medium text-foreground/80 transition-colors duration-300 hover:border-primary hover:text-primary"
+                        className="rounded-full border border-border/60 bg-secondary/50 px-3 py-1 text-[11px] font-mono font-medium text-foreground/80 transition-all duration-300 hover:border-primary hover:text-primary hover:bg-secondary/80"
                       >
                         {t}
                       </li>
@@ -649,14 +691,14 @@ export function Projects() {
                       href={p.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-5 py-2 text-xs font-semibold transition-all duration-300 hover:bg-secondary hover:border-primary/50"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-secondary/50 px-5 py-2.5 text-xs font-semibold text-foreground transition-all duration-300 hover:bg-secondary hover:border-primary/50 hover:text-primary hover:scale-105"
                     >
                       <span>Inspect Codebase</span>
                       <span className="text-xs">↗</span>
                     </a>
                     <a
                       href={p.demoUrl}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-primary px-5 py-2 text-xs font-semibold text-primary-foreground shadow-md transition-transform duration-300 hover:scale-105"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-primary px-6 py-2.5 text-xs font-bold text-primary-foreground shadow-[0_0_25px_-5px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_-5px_color-mix(in_oklab,var(--primary)_90%,transparent)]"
                     >
                       <span>Explore System</span>
                       <span>→</span>
