@@ -164,9 +164,11 @@ export function ProjectCardStack() {
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
+    cardRef.current.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
     setRotate({
-      x: -(y / (rect.height / 2)) * 8,
-      y: (x / (rect.width / 2)) * 8,
+      x: -(y / (rect.height / 2)) * 11,
+      y: (x / (rect.width / 2)) * 11,
     });
   };
 
@@ -183,7 +185,7 @@ export function ProjectCardStack() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-lg select-none perspective-[1200px]">
+    <div className="relative mx-auto w-full max-w-lg select-none perspective-[1400px]">
       {/* Controls Header */}
       <div className="mb-4 flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
@@ -197,14 +199,14 @@ export function ProjectCardStack() {
           <button
             onClick={prevCard}
             aria-label="Previous project"
-            className="flex h-7 w-7 items-center justify-center rounded-full border border-border/80 bg-card/80 text-xs font-bold text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-border/80 bg-card/80 text-xs font-bold text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground cursor-pointer"
           >
             ←
           </button>
           <button
             onClick={nextCard}
             aria-label="Next project"
-            className="flex h-7 w-7 items-center justify-center rounded-full border border-border/80 bg-card/80 text-xs font-bold text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-border/80 bg-card/80 text-xs font-bold text-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground cursor-pointer"
           >
             →
           </button>
@@ -216,7 +218,7 @@ export function ProjectCardStack() {
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative h-[380px] w-full cursor-pointer transition-transform duration-200 ease-out"
+        className="relative h-[380px] w-full cursor-pointer transition-transform duration-200 ease-out [transform-style:preserve-3d]"
         style={{
           transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
         }}
@@ -233,7 +235,7 @@ export function ProjectCardStack() {
           return (
             <div
               key={card.id}
-              className={`absolute inset-0 flex flex-col justify-between rounded-3xl border bg-gradient-to-br p-6 shadow-2xl backdrop-blur-2xl transition-all duration-500 ease-out ${
+              className={`absolute inset-0 flex flex-col justify-between overflow-hidden rounded-3xl border bg-gradient-to-br p-6 shadow-2xl backdrop-blur-2xl transition-all duration-500 ease-out [transform-style:preserve-3d] ${
                 card.accentColor
               } ${
                 isTop
@@ -247,19 +249,27 @@ export function ProjectCardStack() {
                 pointerEvents: isTop ? "auto" : "none",
               }}
             >
+              {/* Shimmer sweep on active card */}
+              {isTop && (
+                <>
+                  <div className="pointer-events-none absolute inset-0 -translate-x-full animate-[shimmer_4s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                  <div className="glare-sheen opacity-60" />
+                </>
+              )}
+
               <div>
                 {/* Card Badge */}
-                <div className="flex items-center justify-between border-b border-border/50 pb-3">
+                <div className="card-3d-child flex items-center justify-between border-b border-border/50 pb-3">
                   <span className="font-mono text-xs font-bold tracking-widest text-primary">
                     // {card.n} • {card.category}
                   </span>
-                  <span className="rounded-full border border-border/60 bg-background/60 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
-                    Click to cycle
+                  <span className="rounded-full border border-border/60 bg-background/60 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground backdrop-blur-md">
+                    Click to cycle ↻
                   </span>
                 </div>
 
                 {/* Title & Description */}
-                <div className="mt-4">
+                <div className="card-3d-child mt-4">
                   <h3 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                     {card.title}
                   </h3>
@@ -271,13 +281,13 @@ export function ProjectCardStack() {
 
               <div>
                 {/* Metric Highlights */}
-                <div className="grid grid-cols-3 gap-2 rounded-2xl border border-border/40 bg-background/50 p-2.5">
+                <div className="card-3d-child-lg grid grid-cols-3 gap-2 rounded-2xl border border-border/40 bg-background/60 p-2.5 backdrop-blur-md">
                   {card.metrics.map((m) => (
                     <div key={m.label} className="text-center">
                       <p className="font-display text-xs font-bold text-foreground sm:text-sm">
                         {m.value}
                       </p>
-                      <p className="text-[9px] uppercase tracking-wider text-muted-foreground">
+                      <p className="text-[9px] uppercase tracking-wider text-muted-foreground font-mono">
                         {m.label}
                       </p>
                     </div>
@@ -289,7 +299,7 @@ export function ProjectCardStack() {
                   {card.tags.map((t) => (
                     <span
                       key={t}
-                      className="rounded-lg border border-border/50 bg-secondary/60 px-2 py-0.5 text-[10px] font-semibold text-foreground/85"
+                      className="rounded-lg border border-border/50 bg-secondary/70 px-2 py-0.5 text-[10px] font-semibold text-foreground/85"
                     >
                       {t}
                     </span>
@@ -301,10 +311,10 @@ export function ProjectCardStack() {
                   <a
                      href="#projects"
                      onClick={(e) => e.stopPropagation()}
-                     className="inline-flex items-center gap-1.5 text-xs font-bold text-primary transition-all hover:underline"
+                     className="group/link inline-flex items-center gap-1.5 text-xs font-bold text-primary transition-all hover:text-foreground"
                    >
                      <span>Inspect Full Project</span>
-                     <span>→</span>
+                     <span className="transition-transform duration-200 group-hover/link:translate-x-1">→</span>
                    </a>
 
                   <div className="flex gap-1">
