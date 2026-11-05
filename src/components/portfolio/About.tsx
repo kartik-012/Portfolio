@@ -104,8 +104,30 @@ export function About() {
             {/* Ambient Background Aura */}
             <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-white/30 via-primary-foreground/20 to-black/40 blur-xl opacity-70 transition-all duration-500 group-hover:opacity-100 group-hover:scale-105" />
 
-            {/* Floating Portrait Container */}
-            <div className="animate-float relative overflow-hidden rounded-3xl border-4 border-background/90 bg-background/40 shadow-[0_30px_90px_-20px_oklch(0_0_0/0.9)] backdrop-blur-xl">
+            {/* Floating 3D Portrait Container */}
+            <div
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                e.currentTarget.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+                e.currentTarget.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.setProperty("--rotate-x", "0deg");
+                e.currentTarget.style.setProperty("--rotate-y", "0deg");
+              }}
+              className="card-3d relative overflow-hidden rounded-3xl border-4 border-background/90 bg-background/40 shadow-[0_30px_90px_-20px_oklch(0_0_0/0.9)] backdrop-blur-xl [transform-style:preserve-3d]"
+            >
+              {/* 3D Specular Sheen Glare */}
+              <div className="glare-sheen group-hover:opacity-100" />
+
               <img
                 src="/kartik.jpg"
                 alt="Portrait of Kartik Raikar — AI Engineer"
@@ -115,8 +137,8 @@ export function About() {
                 className="h-[430px] w-full object-cover object-[center_48%] transition-transform duration-700 group-hover:scale-105"
               />
 
-              {/* Bottom Holographic HUD Overlay */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-5 text-white">
+              {/* Bottom Holographic HUD Overlay with 3D Depth Lift */}
+              <div className="card-3d-child absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-5 text-white">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="relative flex h-2.5 w-2.5">
@@ -178,7 +200,12 @@ export function About() {
             {STACK.map((s, i) => (
               <div
                 key={s.label}
-                className="reveal-scale group relative flex flex-1 min-w-[100px] flex-col items-center justify-center rounded-2xl border-2 border-background/80 bg-background/95 p-3.5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-background hover:shadow-2xl"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+                }}
+                className="reveal-scale group relative flex flex-1 min-w-[105px] flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-background/80 bg-background/95 p-3.5 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-background hover:shadow-2xl"
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${100 + i * 50}ms` }}
               >
@@ -186,6 +213,14 @@ export function About() {
                 <div
                   className="pointer-events-none absolute -inset-1 rounded-2xl opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100"
                   style={{ background: s.glow }}
+                />
+
+                {/* Cursor Spotlight Overlay */}
+                <div
+                  className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(130px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${s.glow}, transparent 75%)`,
+                  }}
                 />
 
                 {/* Big SVG Icon */}
@@ -211,14 +246,15 @@ export function About() {
             {STATS.map((s, i) => (
               <div
                 key={s.label}
-                className="reveal rounded-2xl border border-primary-foreground/25 bg-primary-foreground/10 px-3.5 py-4 backdrop-blur-sm transition-transform hover:scale-105"
+                className="reveal group relative overflow-hidden rounded-2xl border border-white/25 bg-black/20 p-4 backdrop-blur-xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:bg-black/30 hover:shadow-xl"
                 data-reveal
                 style={{ ["--reveal-delay" as string]: `${i * 100}ms` }}
               >
-                <p className="font-display text-2xl sm:text-3xl font-black text-primary-foreground">
+                <div className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/10 blur-xl transition-all duration-300 group-hover:bg-white/20" />
+                <p className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight">
                   {s.value}
                 </p>
-                <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground/80 leading-tight">
+                <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-white/85 leading-tight">
                   {s.label}
                 </p>
               </div>
