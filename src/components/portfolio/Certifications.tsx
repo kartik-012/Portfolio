@@ -22,7 +22,8 @@ export type Certification = {
     | "sparkiit"
     | "cognifyz"
     | "guvi"
-    | "linkedin";
+    | "linkedin"
+    | "huggingface";
   date: string;
   category: "ai" | "cloud" | "security" | "data" | "dev";
   credentialId?: string;
@@ -35,6 +36,24 @@ export type Certification = {
 };
 
 export const CERTIFICATIONS: Certification[] = [
+  // 0. Hugging Face: Fundamentals of Agents (Oct 2026)
+  {
+    id: "huggingface-fundamentals-of-agents",
+    title: "Certificate of Achievement: Fundamentals of Agents",
+    issuer: "Hugging Face",
+    issuerKey: "huggingface",
+    date: "Oct 2026",
+    certificateImage: "/certificates/huggingface-agents.png",
+    certificateUrl:
+      "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications",
+    category: "ai",
+    skills: ["AI Agents", "Autonomous Systems", "Tool Calling", "ReAct Pattern", "Reasoning Workflows"],
+    description:
+      "Successfully completed Unit 1: Foundations of Agents in the Hugging Face Agents Course, validating core expertise in autonomous LLM agent architecture, reasoning loops, and multi-step environment interaction.",
+    brandColor: "#FFD21E",
+    accentGlow: "rgba(255, 210, 30, 0.4)",
+  },
+
   // 1. Apache Kafka Essential Training (User requested)
   {
     id: "linkedin-apache-kafka",
@@ -507,8 +526,20 @@ export function Certifications() {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -7.5;
+    const rotateY = ((x - centerX) / centerX) * 7.5;
+
     e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
     e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+    e.currentTarget.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+    e.currentTarget.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+  };
+
+  const handleMouseLeave = (e: MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.setProperty("--rotate-x", "0deg");
+    e.currentTarget.style.setProperty("--rotate-y", "0deg");
   };
 
   const filteredCerts = useMemo(() => {
@@ -564,7 +595,7 @@ export function Certifications() {
             data-reveal
             style={{ ["--reveal-delay" as string]: "140ms" }}
           >
-            A verified record of {CERTIFICATIONS.length} specialized certifications spanning Oracle Generative AI &amp; Agentic AI, Apache Kafka, AWS Machine Learning, Cisco Cybersecurity, and enterprise data analytics simulations.
+            A verified record of {CERTIFICATIONS.length} specialized certifications spanning Hugging Face Autonomous Agents, Oracle Generative AI &amp; Agentic AI, Apache Kafka, AWS Machine Learning, Cisco Cybersecurity, and enterprise data analytics simulations.
           </p>
         </div>
 
@@ -576,19 +607,34 @@ export function Certifications() {
         >
           {/* Categories */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all duration-300 ${
-                  activeCategory === cat.id
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
-                    : "border border-border/60 bg-card/40 text-muted-foreground hover:bg-card hover:text-foreground"
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+            {CATEGORIES.map((cat) => {
+              const count =
+                cat.id === "all"
+                  ? CERTIFICATIONS.length
+                  : CERTIFICATIONS.filter((c) => c.category === cat.id).length;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 ${
+                    activeCategory === cat.id
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105"
+                      : "border border-border/60 bg-card/40 text-muted-foreground hover:bg-card hover:text-foreground hover:border-border"
+                  }`}
+                >
+                  <span>{cat.label}</span>
+                  <span
+                    className={`rounded-full px-1.5 py-0.5 text-[9px] font-black ${
+                      activeCategory === cat.id
+                        ? "bg-white/20 text-white"
+                        : "bg-border/50 text-muted-foreground"
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Search Box */}
@@ -621,7 +667,8 @@ export function Certifications() {
             <div
               key={cert.id}
               onMouseMove={handleMouseMove}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/60 bg-card/40 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-2xl"
+              onMouseLeave={handleMouseLeave}
+              className="card-3d group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/60 bg-card/40 p-6 shadow-xl backdrop-blur-xl hover:border-primary/50 hover:shadow-2xl"
               style={{
                 ["--brand-color" as string]: cert.brandColor,
                 ["--accent-glow" as string]: cert.accentGlow,
@@ -635,9 +682,12 @@ export function Certifications() {
                 }}
               />
 
-              <div className="relative z-10 space-y-4">
+              {/* 3D Specular Sheen Glare */}
+              <div className="glare-sheen group-hover:opacity-100" />
+
+              <div className="relative z-10 space-y-4 [transform-style:preserve-3d]">
                 {/* Issuer Header Bar */}
-                <div className="flex items-center justify-between gap-3">
+                <div className="card-3d-child flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <IssuerIcon issuerKey={cert.issuerKey} />
                     <div>
@@ -657,7 +707,7 @@ export function Certifications() {
                 {cert.certificateImage && (
                   <div
                     onClick={() => setSelectedCert(cert)}
-                    className="relative mt-2 h-40 w-full cursor-pointer overflow-hidden rounded-2xl border border-border/50 bg-black/40 group/img transition-all hover:border-primary/60"
+                    className="card-3d-child relative mt-2 h-40 w-full cursor-pointer overflow-hidden rounded-2xl border border-border/50 bg-black/40 group/img transition-all hover:border-primary/60"
                   >
                     <img
                       src={cert.certificateImage}
@@ -674,7 +724,7 @@ export function Certifications() {
                 )}
 
                 {/* Title */}
-                <div>
+                <div className="card-3d-child">
                   <h3 className="font-display text-base font-bold leading-snug text-foreground group-hover:text-primary transition-colors duration-200">
                     {cert.title}
                   </h3>
@@ -728,7 +778,7 @@ export function Certifications() {
                 <div className="grid grid-cols-2 gap-2 mt-1">
                   <button
                     onClick={() => setSelectedCert(cert)}
-                    className="inline-flex items-center justify-center gap-1 rounded-xl bg-primary/15 border border-primary/40 px-3 py-1.5 text-[11px] font-semibold text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:border-primary"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary/15 border border-primary/40 px-3 py-2 text-[11px] font-bold text-primary transition-all duration-200 hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-[0_0_20px_-3px_color-mix(in_oklab,var(--primary)_70%,transparent)] active:scale-95 cursor-pointer"
                   >
                     <span>🖼️</span> Preview
                   </button>
@@ -737,10 +787,10 @@ export function Certifications() {
                     href={cert.certificateUrl || "https://www.linkedin.com/in/kartik-raikar-kr/overlay/168172779/skill-associations-details/?associationType=certifications"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1 rounded-xl border border-border/70 bg-card/60 px-3 py-1.5 text-[11px] font-semibold text-foreground transition-all duration-200 hover:border-primary/60 hover:text-primary"
+                    className="group/v inline-flex items-center justify-center gap-1 rounded-xl border border-border/70 bg-card/60 px-3 py-2 text-[11px] font-semibold text-foreground transition-all duration-200 hover:border-primary/60 hover:text-primary active:scale-95"
                   >
                     <span>Verify</span>
-                    <span className="text-xs">↗</span>
+                    <span className="text-xs transition-transform duration-200 group-hover/v:translate-x-0.5 group-hover/v:-translate-y-0.5">↗</span>
                   </a>
                 </div>
               </div>
@@ -995,6 +1045,12 @@ function IssuerIcon({ issuerKey }: { issuerKey: string }) {
       return (
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#111827] text-[#6366F1] shadow-md font-black text-xs border border-indigo-500/30">
           GS
+        </div>
+      );
+    case "huggingface":
+      return (
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFD21E] text-black shadow-md font-bold text-xl select-none">
+          🤗
         </div>
       );
     default:
