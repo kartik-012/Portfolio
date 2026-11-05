@@ -125,47 +125,81 @@
   font-family: var(--font-display);
 }
 
-/* ---------- Scroll reveal ---------- */
+/* ---------- Scroll reveal with 3D entry ---------- */
 @utility reveal {
   opacity: 0;
-  transform: translateY(38px);
+  transform: perspective(1200px) translateY(42px) rotateX(6deg) scale(0.97);
   transition:
-    opacity 0.9s var(--ease-out-soft),
-    transform 0.9s var(--ease-out-soft);
+    opacity 0.85s var(--ease-out-soft),
+    transform 0.85s var(--ease-out-soft);
   transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(1200px) translateY(0) rotateX(0deg) scale(1);
 }
 
 @utility reveal-x {
   opacity: 0;
-  transform: translateX(-46px);
+  transform: perspective(1200px) translateX(-46px) rotateY(-8deg);
   transition:
-    opacity 0.9s var(--ease-out-soft),
-    transform 0.9s var(--ease-out-soft);
+    opacity 0.85s var(--ease-out-soft),
+    transform 0.85s var(--ease-out-soft);
   transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
 }
 
 .reveal-x.is-visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: perspective(1200px) translateX(0) rotateY(0deg);
 }
 
 @utility reveal-scale {
   opacity: 0;
-  transform: scale(0.94);
+  transform: perspective(1200px) scale(0.92) translateZ(-40px);
   transition:
-    opacity 0.8s var(--ease-out-soft),
-    transform 0.8s var(--ease-out-soft);
+    opacity 0.85s var(--ease-out-soft),
+    transform 0.85s var(--ease-out-soft);
   transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
 }
 
 .reveal-scale.is-visible {
   opacity: 1;
-  transform: scale(1);
+  transform: perspective(1200px) scale(1) translateZ(0);
+}
+
+/* ---------- Real 3D Interactive Card Physics ---------- */
+@utility card-3d {
+  transform-style: preserve-3d;
+  perspective: 1100px;
+  will-change: transform;
+  transform: perspective(1100px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) translateZ(0);
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@utility card-3d-child {
+  transform: translateZ(24px);
+  transform-style: preserve-3d;
+}
+
+@utility card-3d-child-lg {
+  transform: translateZ(42px);
+  transform-style: preserve-3d;
+}
+
+@utility glare-sheen {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 380px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.14), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: overlay;
+  z-index: 25;
 }
 
 /* ---------- Motifs ---------- */
@@ -175,12 +209,35 @@
 
 @utility card-dark {
   background: linear-gradient(160deg, oklch(0.13 0.01 20), oklch(0.09 0.006 20));
-  border: 1px solid oklch(1 0 0 / 0.07);
+  border: 1px solid oklch(1 0 0 / 0.08);
   box-shadow: var(--shadow-card);
 }
 
+@utility glass-card {
+  background: linear-gradient(135deg, oklch(0.12 0.008 20 / 0.8), oklch(0.08 0.004 20 / 0.6));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(1 0 0 / 0.1);
+}
+
+@utility glass-card-hover {
+  transition: all 0.4s var(--ease-out-soft);
+  &:hover {
+    border-color: color-mix(in oklab, var(--primary) 50%, transparent);
+    box-shadow: 0 20px 50px -20px color-mix(in oklab, var(--primary) 35%, transparent);
+    transform: translateY(-4px);
+  }
+}
+
 @utility text-gradient-red {
-  background: linear-gradient(120deg, oklch(0.98 0 0), oklch(0.62 0.24 27));
+  background: linear-gradient(120deg, oklch(0.98 0 0), oklch(0.68 0.24 27));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-amber {
+  background: linear-gradient(120deg, #FDE68A, #F59E0B, #EF4444);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -201,7 +258,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-14px);
+    transform: translateY(-12px);
   }
 }
 
@@ -210,7 +267,7 @@
     box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 55%, transparent);
   }
   70% {
-    box-shadow: 0 0 0 18px transparent;
+    box-shadow: 0 0 0 16px transparent;
   }
   100% {
     box-shadow: 0 0 0 0 transparent;
@@ -237,6 +294,24 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes beam-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .animate-marquee {
   animation: marquee-x 26s linear infinite;
 }
@@ -252,6 +327,11 @@
 .animate-dash {
   stroke-dasharray: 8 8;
   animation: dash-flow 1.2s linear infinite;
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
 }
 
 @media (prefers-reduced-motion: reduce) {
