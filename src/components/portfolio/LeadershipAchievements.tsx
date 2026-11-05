@@ -116,8 +116,22 @@ export function LeadershipAchievements() {
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-    e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -7.5;
+    const rotateY = ((x - centerX) / centerX) * 7.5;
+
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+    e.currentTarget.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+    e.currentTarget.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+  };
+
+  const handleMouseLeave = (e: MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.setProperty("--rotate-x", "0deg");
+    e.currentTarget.style.setProperty("--rotate-y", "0deg");
   };
 
   const filteredItems = ACHIEVEMENTS.filter(
@@ -226,9 +240,10 @@ export function LeadershipAchievements() {
             <div
               key={item.id}
               onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               data-reveal
               style={{ ["--reveal-delay" as string]: `${idx * 80}ms` }}
-              className={`reveal group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card/40 backdrop-blur-xl shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${item.borderHover}`}
+              className={`reveal card-3d group relative flex flex-col overflow-hidden rounded-3xl border border-border/60 bg-card/40 backdrop-blur-xl shadow-xl ${item.borderHover} hover:shadow-2xl`}
             >
               {/* Cursor Spotlight */}
               <div
@@ -238,6 +253,9 @@ export function LeadershipAchievements() {
                 }}
               />
 
+              {/* 3D Specular Glare Sheen */}
+              <div className="glare-sheen group-hover:opacity-100" />
+
               {/* Top Color Bar */}
               <div
                 className="h-1 w-full rounded-t-3xl"
@@ -246,9 +264,9 @@ export function LeadershipAchievements() {
                 }}
               />
 
-              <div className="relative z-10 flex flex-col flex-1 p-6">
+              <div className="relative z-10 flex flex-col flex-1 p-6 [transform-style:preserve-3d]">
                 {/* Card Header */}
-                <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="card-3d-child flex items-start justify-between gap-3 mb-4">
                   {/* Icon Circle */}
                   <div
                     className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl shadow-lg"
@@ -327,15 +345,21 @@ export function LeadershipAchievements() {
                   {item.certificateImage ? (
                     <button
                       onClick={() => setSelectedCert(item)}
-                      className="w-full flex items-center justify-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/10 py-2.5 px-3 text-xs font-bold text-emerald-400 transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20"
+                      className="group/btn relative w-full flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-emerald-500/40 bg-emerald-500/10 py-2.5 px-3 text-xs font-bold text-emerald-400 transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:border-emerald-400 hover:shadow-[0_0_25px_-4px_rgba(16,185,129,0.5)] active:scale-95 cursor-pointer"
                     >
-                      <span>✓</span>
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                      </span>
                       <span>View Verified Certificate</span>
-                      <span>📄</span>
+                      <span className="transition-transform duration-300 group-hover/btn:translate-x-1">📄</span>
                     </button>
                   ) : (
-                    <div className="w-full flex items-center justify-center gap-2 rounded-xl border border-violet-500/30 bg-violet-500/10 py-2.5 px-3 text-xs font-bold text-violet-400">
-                      <span>👑</span>
+                    <div className="w-full flex items-center justify-center gap-2 rounded-xl border border-violet-500/40 bg-violet-500/15 py-2.5 px-3 text-xs font-bold text-violet-300 shadow-[0_0_20px_-5px_rgba(139,92,246,0.3)]">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-400" />
+                      </span>
                       <span>Active Executive Role</span>
                     </div>
                   )}
