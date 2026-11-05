@@ -137,13 +137,25 @@ function HUDCard({ badge, title, sub, icon, accent, borderGlow, children }: HUDC
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -9;
+    const rotateY = ((x - centerX) / centerX) * 9;
+
+    cardRef.current.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+    cardRef.current.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+    setMousePos({ x, y });
   };
 
   const handleMouseLeave = () => {
+    if (cardRef.current) {
+      cardRef.current.style.setProperty("--rotate-x", "0deg");
+      cardRef.current.style.setProperty("--rotate-y", "0deg");
+    }
     setMousePos(null);
   };
 
@@ -152,7 +164,7 @@ function HUDCard({ badge, title, sub, icon, accent, borderGlow, children }: HUDC
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/60 hover:shadow-[0_12px_40px_-15px_color-mix(in_oklab,var(--primary)_50%,transparent)]"
+      className="card-3d group relative overflow-hidden rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur-xl hover:border-primary/60 hover:shadow-[0_16px_45px_-12px_color-mix(in_oklab,var(--primary)_50%,transparent)] [transform-style:preserve-3d]"
     >
       {/* Dynamic Cursor Spotlight Effect */}
       {mousePos && (
@@ -163,6 +175,9 @@ function HUDCard({ badge, title, sub, icon, accent, borderGlow, children }: HUDC
           }}
         />
       )}
+
+      {/* 3D Specular Sheen Glare */}
+      <div className="glare-sheen group-hover:opacity-100" />
 
       {/* Cybernetic scanning light ray */}
       <div
@@ -178,7 +193,7 @@ function HUDCard({ badge, title, sub, icon, accent, borderGlow, children }: HUDC
       />
 
       {/* Content */}
-      <div className="relative z-10">
+      <div className="card-3d-child relative z-10">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80">
             {badge}
