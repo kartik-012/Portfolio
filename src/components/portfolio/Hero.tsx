@@ -64,11 +64,14 @@ export function Hero({ onOpenResume }: HeroProps = {}) {
         <div className="grid w-full items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
           {/* Left Column: Big Bold Typography & Dynamic Animated Bio */}
           <div className="max-w-2xl">
-            {/* Status & Identity pill with photo preview */}
+            {/* Status & Identity pill with photo preview & shimmer animation */}
             <div
-              className="reveal inline-flex items-center gap-3 rounded-full border border-primary/40 bg-card/85 p-1.5 pr-4.5 backdrop-blur-xl shadow-[0_0_30px_-5px_color-mix(in_oklab,var(--primary)_35%,transparent)]"
+              className="reveal group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-primary/40 bg-card/85 p-1.5 pr-4.5 backdrop-blur-xl shadow-[0_0_30px_-5px_color-mix(in_oklab,var(--primary)_35%,transparent)] transition-all duration-300 hover:border-primary/70 hover:shadow-[0_0_40px_-5px_color-mix(in_oklab,var(--primary)_50%,transparent)]"
               data-reveal
             >
+              {/* Animated shimmer sweep */}
+              <div className="pointer-events-none absolute inset-0 -translate-x-full animate-[shimmer_3.5s_infinite] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+
               <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-primary shadow-md ring-2 ring-primary/30">
                 <img
                   src="/kartik.jpg"
@@ -129,10 +132,12 @@ export function Hero({ onOpenResume }: HeroProps = {}) {
             >
               <a
                 href="#projects"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-[0_0_35px_-8px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_-5px_color-mix(in_oklab,var(--primary)_90%,transparent)]"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-primary-foreground shadow-[0_0_35px_-8px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_55px_-5px_color-mix(in_oklab,var(--primary)_90%,transparent)] active:scale-95"
               >
+                {/* Light reflection beam */}
+                <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 <span>Explore Featured Systems</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                <span className="transition-transform duration-300 group-hover:translate-x-1.5">
                   →
                 </span>
               </a>
@@ -140,8 +145,12 @@ export function Hero({ onOpenResume }: HeroProps = {}) {
               <button
                 type="button"
                 onClick={onOpenResume}
-                className="group inline-flex items-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-6 py-3.5 text-sm font-semibold text-emerald-400 backdrop-blur-md transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20 cursor-pointer"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-emerald-500/50 bg-emerald-500/10 px-6 py-3.5 text-sm font-semibold text-emerald-400 backdrop-blur-md transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:border-emerald-400 hover:shadow-[0_0_35px_-5px_rgba(16,185,129,0.5)] active:scale-95 cursor-pointer"
               >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
                 </svg>
@@ -150,7 +159,7 @@ export function Hero({ onOpenResume }: HeroProps = {}) {
 
               <a
                 href="#contact"
-                className="rounded-full border border-border/80 bg-card/60 px-6 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:bg-card hover:text-primary"
+                className="rounded-full border border-border/80 bg-card/60 px-6 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:bg-card hover:text-primary active:scale-95"
               >
                 Get in Touch
               </a>
@@ -159,11 +168,35 @@ export function Hero({ onOpenResume }: HeroProps = {}) {
                 href="https://github.com/kartik-012"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
+                className="group inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
               >
                 <span>GitHub</span>
-                <span className="text-xs">↗</span>
+                <span className="text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
               </a>
+            </div>
+
+            {/* Recruiter Trust Proof Badges */}
+            <div
+              className="reveal mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5 border-t border-border/40 pt-5 text-xs font-mono text-muted-foreground"
+              data-reveal
+              style={{ ["--reveal-delay" as string]: "360ms" }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+                <span>Top-1 RCA: <strong className="text-foreground font-semibold">100% Precision</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_color-mix(in_oklab,var(--primary)_80%,transparent)]" />
+                <span>RAG &amp; Sockets: <strong className="text-foreground font-semibold">&lt;0.8s Latency</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]" />
+                <span>Certifications: <strong className="text-foreground font-semibold">24 Verified Credentials</strong></span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_#a78bfa]" />
+                <span>Academics: <strong className="text-foreground font-semibold">8.5 CGPA (AIML VP)</strong></span>
+              </div>
             </div>
           </div>
 
