@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 
 interface SkillItem {
   name: string;
@@ -215,22 +215,47 @@ export function Skills() {
       ? SKILL_GROUPS
       : SKILL_GROUPS.filter((g) => g.category === activeCategory);
 
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -7; // 3D tilt X
+    const rotateY = ((x - centerX) / centerX) * 7;  // 3D tilt Y
+
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+    e.currentTarget.style.setProperty("--rotate-x", `${rotateX.toFixed(2)}deg`);
+    e.currentTarget.style.setProperty("--rotate-y", `${rotateY.toFixed(2)}deg`);
+  };
+
+  const handleMouseLeave = (e: MouseEvent<HTMLDivElement>) => {
+    e.currentTarget.style.setProperty("--rotate-x", "0deg");
+    e.currentTarget.style.setProperty("--rotate-y", "0deg");
+  };
+
   return (
-    <section id="skills" className="relative bg-background py-24 md:py-32">
+    <section id="skills" className="relative bg-background py-24 md:py-32 border-t border-border/40">
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[var(--gradient-glow)] opacity-30" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,color-mix(in_oklab,var(--primary)_25%,transparent),transparent_70%)] opacity-70" />
+      <div className="pointer-events-none absolute bottom-10 left-10 h-72 w-72 rounded-full bg-violet-600/5 blur-[140px]" />
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center">
           <span
-            className="reveal inline-block rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground"
+            className="reveal inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em] text-primary backdrop-blur-md"
             data-reveal
           >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            </span>
             Technical Competencies &amp; Production Stack
           </span>
           <h2
-            className="reveal mt-6 font-display text-4xl font-extrabold tracking-tight sm:text-5xl"
+            className="reveal mt-6 font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-foreground"
             data-reveal
             style={{ ["--reveal-delay" as string]: "90ms" }}
           >
@@ -254,10 +279,10 @@ export function Skills() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300 ${
+                className={`rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 cursor-pointer ${
                   activeCategory === cat.id
-                    ? "bg-primary text-primary-foreground shadow-md glow-red scale-105"
-                    : "border border-border/80 bg-card/60 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105"
+                    : "border border-border/80 bg-card/60 text-muted-foreground hover:border-primary/50 hover:text-foreground hover:bg-card"
                 }`}
               >
                 {cat.label}
@@ -271,18 +296,31 @@ export function Skills() {
           {filteredGroups.map((group, groupIdx) => (
             <div
               key={group.id}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
               data-reveal
               style={{ ["--reveal-delay" as string]: `${(groupIdx % 2) * 120}ms` }}
-              className={`reveal group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border bg-card p-6 sm:p-8 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 ${group.borderHover} hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)]`}
+              className={`reveal card-3d group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/80 bg-card/60 p-6 sm:p-8 backdrop-blur-xl ${group.borderHover} hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]`}
             >
+              {/* Dynamic Cursor Spotlight Effect */}
+              <div
+                className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{
+                  background: `radial-gradient(350px circle at var(--mouse-x, 200px) var(--mouse-y, 100px), color-mix(in oklab, var(--primary) 18%, transparent), transparent 75%)`,
+                }}
+              />
+
+              {/* 3D Specular Sheen Glare */}
+              <div className="glare-sheen group-hover:opacity-100" />
+
               {/* Corner Ambient Gradient */}
               <div
                 className={`pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gradient-to-br ${group.accentColor} opacity-50 blur-3xl transition-opacity duration-500 group-hover:opacity-100`}
               />
 
-              <div className="relative z-10">
+              <div className="relative z-10 [transform-style:preserve-3d]">
                 {/* Header */}
-                <div className="flex items-start justify-between border-b border-border/50 pb-5">
+                <div className="card-3d-child flex items-start justify-between border-b border-border/50 pb-5">
                   <div className="flex items-center gap-3">
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-secondary/60 text-2xl shadow-sm">
                       {group.icon}
@@ -296,7 +334,7 @@ export function Skills() {
                       </p>
                     </div>
                   </div>
-                  <span className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-1 text-[10px] font-mono font-bold text-muted-foreground">
+                  <span className="rounded-full border border-border/60 bg-secondary/50 px-3 py-1 text-[10px] font-mono font-bold text-muted-foreground">
                     {group.skills.length} Tools
                   </span>
                 </div>
@@ -306,14 +344,14 @@ export function Skills() {
                   {group.skills.map((skill) => (
                     <li
                       key={skill.name}
-                      className="group/item rounded-2xl border border-border/40 bg-secondary/25 p-3.5 transition-all duration-300 hover:border-primary/40 hover:bg-secondary/45"
+                      className="group/item rounded-2xl border border-border/40 bg-secondary/25 p-3.5 transition-all duration-300 hover:border-primary/50 hover:bg-secondary/55 hover:scale-[1.01]"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-1.5">
                         <span className="font-display text-xs font-bold text-foreground sm:text-sm">
                           {skill.name}
                         </span>
                         <span
-                          className={`rounded-full border px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider ${skill.tierColor}`}
+                          className={`rounded-full border px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider ${skill.tierColor}`}
                         >
                           {skill.tier}
                         </span>
@@ -324,9 +362,9 @@ export function Skills() {
                       </p>
 
                       {skill.projectRef && (
-                        <div className="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-primary/90 font-medium">
+                        <div className="mt-2.5 flex items-center gap-1.5 text-[10px] font-mono text-primary/90 font-medium">
                           <span className="text-muted-foreground">Deployed in:</span>
-                          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-primary">
+                          <span className="rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 text-primary">
                             {skill.projectRef}
                           </span>
                         </div>
