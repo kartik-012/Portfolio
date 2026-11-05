@@ -53,19 +53,19 @@ export function Nav({ onOpenResume, onOpenCommand }: NavProps) {
           <span>Kartik Raikar</span>
         </a>
 
-        <ul className="hidden items-center gap-1 rounded-full border border-border bg-card/50 px-2 py-1.5 backdrop-blur-md md:flex">
+        <ul className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/80 px-2.5 py-1.5 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)] md:flex">
           {LINKS.map((l) => (
             <li key={l.id}>
               <a
                 href={`#${l.id}`}
-                className={`relative block rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-300 ${
+                className={`relative block rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-300 ${
                   active === l.id
-                    ? "text-primary-foreground"
+                    ? "text-primary-foreground font-semibold"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {active === l.id && (
-                  <span className="absolute inset-0 -z-10 rounded-full bg-primary glow-red" />
+                  <span className="absolute inset-0 -z-10 rounded-full bg-primary shadow-[0_0_20px_-3px_color-mix(in_oklab,var(--primary)_80%,transparent)]" />
                 )}
                 {l.label}
               </a>
@@ -78,36 +78,42 @@ export function Nav({ onOpenResume, onOpenCommand }: NavProps) {
           <button
             onClick={onOpenCommand}
             aria-label="Open command palette (Ctrl+K)"
-            className="hidden items-center gap-1.5 rounded-full border border-border/80 bg-card/60 px-3 py-1.5 text-xs font-semibold text-muted-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:text-foreground md:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full border border-border/80 bg-card/70 px-3.5 py-1.5 text-xs font-semibold text-muted-foreground backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:bg-card hover:text-foreground active:scale-95 md:inline-flex cursor-pointer"
           >
             <span className="text-xs">🔍</span>
             <span className="text-[11px]">Search</span>
-            <kbd className="rounded bg-secondary/80 px-1.5 py-0.5 font-mono text-[9px] font-bold text-muted-foreground">
+            <kbd className="rounded border border-border/60 bg-secondary/80 px-1.5 py-0.5 font-mono text-[9px] font-bold text-muted-foreground">
               ⌘K
             </kbd>
           </button>
 
-          {/* In-Browser Resume Modal Trigger */}
+          {/* In-Browser Resume Modal Trigger - Recruiter Focus */}
           <button
             onClick={onOpenResume}
-            className="hidden items-center gap-1.5 rounded-full border border-border/70 bg-card/60 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:text-primary sm:inline-flex"
+            className="hidden items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-400 backdrop-blur-xl transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-500 hover:text-white hover:shadow-[0_0_25px_-5px_rgba(16,185,129,0.5)] active:scale-95 cursor-pointer sm:inline-flex"
           >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
             </svg>
-            Resume
+            <span>Resume</span>
           </button>
 
           <a
             href="#contact"
-            className="hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-105 glow-red sm:inline-block"
+            className="group relative hidden overflow-hidden rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-[0_0_25px_-5px_color-mix(in_oklab,var(--primary)_70%,transparent)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_-3px_color-mix(in_oklab,var(--primary)_90%,transparent)] active:scale-95 sm:inline-block"
           >
-            Hire Me
+            {/* Shimmer sheen */}
+            <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+            <span>Hire Me</span>
           </a>
           <button
             aria-label="Toggle menu"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-border md:hidden"
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-card/70 backdrop-blur-xl md:hidden"
           >
             <span
               className={`h-px w-5 bg-foreground transition-transform duration-300 ${open ? "translate-y-[3px] rotate-45" : ""}`}
